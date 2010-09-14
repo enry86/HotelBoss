@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>hbConf</servlet-name>
+    <servlet-class>cc.co.enricosartori.hotelboss.webclient.server.HBConfigurationImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>hbConf</servlet-name>
+    <url-pattern>/hotelbossgwt/hbConf</url-pattern>
+  </servlet-mapping>
+
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>HotelBossGWT.html</welcome-file>
+  </welcome-file-list>
+ <!-- 
+  <security-constraint>  
+  	<web-resource-collection>
+  	  <web-resource-name>All resources</web-resource-name>
+  	  <description>Protects all resources</description>
+  	  <url-pattern>/*</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  	  <role-name>admin</role-name>
+  	</auth-constraint>
+  </security-constraint>
+ 
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/login.html</form-login-page>
+      <form-error-page>/error.html</form-error-page>
+    </form-login-config>
+  </login-config>  
+
+  <security-role>
+  	<role-name>admin</role-name>
+  </security-role>
+-->
+</web-app>
+

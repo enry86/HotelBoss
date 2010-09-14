@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- JBoss build file                                                       -->
+<!-- ======================================================================= -->
+
+<project name="HotelBossEJB" default="ejbjar" basedir=".">
+
+   <property environment="env"/>
+   <property name="src.dir" value="${basedir}/ejbModule"/>
+   <property name="jboss.home" value="/home/enry/srv/jboss"/>
+   <property name="jboss.server.config" value="default"/>
+   <property name="build.dir" value="${basedir}/build"/>
+   <property name="build.cli.dir" value="${basedir}/build-cli" />
+   <property name="build.classes.dir" value="${build.dir}/classes"/>
+   <property name="build.artifact" value="hotelboss_ejb.jar"/>
+   <property name="build.cli.jar" value="hotelboss_ejb_cli.jar" />
+   	
+  <property name="ejb.path" value="cc/co/enricosartori/hotelboss" />
+  <property name="ejb.cli.obj" value="${ejb.path}/core/*Remote.java" />
+  <property name="ejb.cli.src" value="${ejb.path}/dto/**" />
+  <property name="ejb.cli.xml" value="${ejb.path}/DTOBinding.gwt.xml" />
+	
+  <property name="srv.host" value="192.168.0.10" />
+  <property name="srv.deploy" location="/home/enry/srv/jboss/server/default/deploy" />
+  <property name="srv.user" value="enry" />
+
+   <!-- Build classpath -->
+   <path id="classpath">
+      <!-- So that we can get jndi.properties for InitialContext -->
+      <pathelement location="${basedir}"/>
+   		<!-- Only the jbossall-client.jar should ideally be sufficient -->
+      <fileset dir="${jboss.home}/client">
+         <include name="**/jbossall-client.jar"/>
+      </fileset>
+    	<!-- javax.persistence.* -->
+    		<fileset dir="${jboss.home}/common/lib">
+    	   			<include name="ejb3-persistence.jar"/>
+    	   	</fileset>
+   	
+      <pathelement location="${build.classes.dir}"/>
+   </path>
+   
+   <path id="ejb.cli.cp">
+      <pathelement location="${jboss.home}/client/jbossall-client.jar" />
+   </path>
+
+   <property name="build.classpath" refid="classpath"/>
+
+   <!-- =================================================================== -->
+   <!-- Prepares the build directory                                        -->
+   <!-- =================================================================== -->
+   <target name="prepare">
+      <mkdir dir="${build.dir}"/>
+      <mkdir dir="${build.classes.dir}"/>
+   	  <mkdir dir="${build.cli.dir}" />
+   </target>
+
+   <!-- =================================================================== -->
+   <!-- Compiles the source code                                            -->
+   <!-- =================================================================== -->
+   <target name="compile" depends="prepare">
+      <javac srcdir="${src.dir}"
+         destdir="${build.classes.dir}"
+         debug="on"
+         deprecation="on"
+         optimize="off"
+         includes="**">
+         <classpath refid="classpath"/>
+      </javac>
+   </target>
+   
+   <target name="build-cli" depends="prepare">
+      <javac srcdir="${src.dir}"
+      	destdir="${build.cli.dir}"
+      	includes="${ejb.cli.obj}"
+      	debug="on"
+      	classpathref="ejb.cli.cp"
+      />	
+   </target>
+   	
+   <target name="ejbjar" depends="compile">
+      <jar jarfile="build/${build.artifact}">
+         <fileset dir="${build.classes.dir}">
+            <include name="**/*.class"/>
+         </fileset>
+      	 <fileset dir="${src.dir}">
+      	 	<include name="META-INF/persistence.xml" />
+      	 </fileset>
+      </jar>
+   </target>
+	
+   <target name="jar-cli" depends="build-cli">
+      <jar destfile="${build.cli.jar}" basedir="${build.cli.dir}" />
+   	  <jar destfile="${build.cli.jar}" basedir="${src.dir}" includes="${ejb.cli.src}" update="true"/>
+   	  <jar destfile="${build.cli.jar}" basedir="${src.dir}" includes="${ejb.cli.xml}" update="true"/>
+   </target>
+
+   <target name="deploy" depends="ejbjar">
+      <copy file="build/${build.artifact}" todir="${jboss.home}/server/${jboss.server.config}/deploy"/>
+   </target>	
+
+   <target name="remote-deploy" depends="ejbjar">
+  	  <input
+  	    message="Insert remote server password:"
+  	    addproperty="srv.pass"
+  	  />
+   	  <scp file="build/${build.artifact}" todir="${srv.user}:${srv.pass}@${srv.host}:${srv.deploy}" />
+   </target>	
+	
+
+   <!-- =================================================================== -->
+   <!-- Cleans up generated stuff                                           -->
+   <!-- =================================================================== -->
+   <target name="clean.db">
+      <delete dir="${jboss.home}/server/${jboss.server.config}/data/hypersonic"/>
+   </target>
+
+   <target name="clean-cli">
+      <delete dir="${build.cli.dir}" />
+   	  <delete file="${build.cli.jar}" />
+   </target>	
+	
+   <target name="clean" depends="clean-cli">
+      <delete dir="${build.classes.dir}"/>
+      <delete file="${build.dir}/${build.artifact}"/>
+   </target>
+	
+   <target name="undeploy">
+      <delete file="${jboss.home}/server/${jboss.server.config}/deploy/${build.artifact}"/>
+   </target>
+
+   <target name="remote-undeploy">
+   	  <input
+  	    message="Insert remote server password:"
+  	    addproperty="srv.pass"   	  	 
+   	  />
+      <sshexec 
+      	 host="${srv.host}"
+      	 username="${srv.user}"
+      	 password="${srv.pass}"
+         command="rm ${srv.deploy}/${build.artifact}"
+      />
+   </target>
+</project>
+

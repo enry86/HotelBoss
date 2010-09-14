@@ -1,0 +1,4 @@
+<jboss-web>
+  <security-domain>java:/jaas/HotelBossLogin</security-domain>
+  <context-root>hotelbossgwt</context-root>
+</jboss-web>

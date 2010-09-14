@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="HotelBossEAR" default="ear" basedir=".">
+	<property name="web.war" value="HotelBossGWT.war" />
+	<property name="web.path" location="../HotelBossGWT" />
+	<property name="ejb.jar" value="hotelboss_ejb.jar" />
+	<property name="ejb.path" value="../HotelBossEJB/build" />
+	<property name="cont.dir" location="${basedir}/EarContent" />
+	<property name="loc.deploy" location="/home/enry/srv/jboss/server/default/deploy" />
+	<property name="srv.host" value="192.168.0.10" />
+	<property name="srv.root" location="/home/enry/srv/jboss/server/default/deploy" />
+	<property name="srv.user" value="enry" />
+	<property name="srv.tmp" location="/home/enry/tmp" />
+	
+	<target name="ear" depends="get-components">
+		<ear destfile="${ant.project.name}.ear" 
+  			appxml="${cont.dir}/application.xml">
+  			<fileset dir="${cont.dir}" includes="*.jar,*.war"/>
+		</ear>
+	</target>
+	
+	<target name="get-components">
+		<copy file="${web.path}/${web.war}" todir="${cont.dir}" />
+		<copy file="${ejb.path}/${ejb.jar}" todir="${cont.dir}" />
+	</target>
+	
+	<target name="remote-deploy" description="Deploy webapp in remote server">
+		<input
+			message="Insert remote server password:"
+	  		addproperty="srv.pass"
+		/>
+		<scp file="${ant.project.name}.ear" todir="${srv.user}:${srv.pass}@${srv.host}:${srv.tmp}" />
+		<sshexec 
+			  	host="${srv.host}" 
+			  	username="${srv.user}"
+			  	password="${srv.pass}"
+			  	command="cp ${srv.tmp}/${ant.project.name}.ear ${srv.root}/${ant.project.name}.ear"
+			  />
+	</target>
+
+	
+	<target name="remote-undeploy" description="Undeploy webapp from remote server">
+	 <input
+	  	message="Insert remote server password:"
+	  	addproperty="srv.pass"
+	 />
+	 <sshexec 
+	  	host="${srv.host}" 
+	  	username="${srv.user}"
+	  	password="${srv.pass}"
+	  	command="rm -r ${srv.root}/${ant.project.name}.ear"
+	  />
+	</target>
+	
+	
+	
+	<target name="deploy" depends="ear">
+		<copy file="${ant.project.name}.ear" todir="${loc.deploy}"/>
+	</target>
+	
+	<target name="undeploy">
+		<delete file="${loc.deploy}/${ant.project.name}.ear" failonerror="false" />
+	</target>
+	
+	<target name="clean">
+		<delete file="${cont.dir}/${web.war}" failonerror="false" />
+		<delete file="${cont.dir}/${ejb.jar}" failonerror="false" />
+		<delete file="${ant.project.name}.ear" failonerror="false" />
+	</target>
+</project>

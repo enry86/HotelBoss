@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="hotelboss.db">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+    	<jta-data-source>java:/MySqlHB</jta-data-source>
+    	<properties>
+    		<property name="hibernate.dialect" 
+    		value="org.hibernate.dialect.MySQL5Dialect"/>
+    	</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="HotelBossGWT" default="war" basedir=".">
+  <!-- Name fo the project -->
+  <property name="proj.name" value="HotelBossGWT" />
+	
+  <!-- Arguments to gwtc and devmode targets -->
+  <property name="gwt.args" value="" />
+
+  <!-- Configure path to GWT SDK -->
+  <property name="gwt.sdk" location="/home/enry/gwt-2.0.3" />
+
+  <!-- Jboss webserver root -->
+  <property name="jboss.root" location="/home/enry/srv/jboss/server/default/deploy" />	
+	
+  <!-- Name of the directory for the webapp -->
+  <property name="webapp.name" value="hotelbossgwt" />
+	
+  <!-- Webapp package -->
+  <property name="webapp.main" value="cc.co.enricosartori.hotelboss.webclient.HotelBossGWT" />
+  
+  <!-- Remote server configuration -->
+  <property name="srv.host" value="192.168.0.10" />
+  <property name="srv.root" location="/home/enry/srv/jboss/server/default/deploy" />
+  <property name="srv.user" value="enry" />
+  <property name="srv.tmp" location="/home/enry/hotelbossgwt_tmp" />
+
+  <property name="ejb.cli.jar" location="war/WEB-INF/lib/hotelboss_ejb_cli.jar" />
+  <property name="ejb.mod" location="../HotelBossEJB" />
+  <path id="project.class.path">
+  	<pathelement location="${basedir}"/>
+    <pathelement location="war/WEB-INF/classes"/>
+    <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+    <!-- Add any additional non-server libs (such as JUnit) -->
+    <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+  </path>
+
+  <target name="libs" description="Copy libs to WEB-INF/lib">
+    <mkdir dir="war/WEB-INF/lib" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <!-- Add any additional server libs that need to be copied -->
+  </target>
+
+  <target name="javac" depends="libs" description="Compile java source">
+    <mkdir dir="war/WEB-INF/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8"
+        destdir="war/WEB-INF/classes"
+        source="1.5" target="1.5" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+  <target name="gwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx256M"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
+      <arg value="${webapp.main}"/>
+    </java>
+  </target>
+
+  <target name="devmode" depends="javac" description="Run development mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <jvmarg value="-Xmx256M"/>
+      <arg value="-startupUrl"/>
+      <!--<arg value="${proj.name}.html"/> -->
+      <arg value="http://127.0.0.1:8080/hotelbossgwt/"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args} -noserver"/>
+      <arg value="${webapp.main}"/>
+    </java>
+  </target>
+
+  <target name="eclipse.generate" depends="libs" description="Generate eclipse project">
+    <java failonerror="true" fork="true" classname="com.google.gwt.user.tools.WebAppCreator">
+      <classpath>
+        <path refid="project.class.path"/>
+      </classpath>
+      <arg value="-XonlyEclipse"/>
+      <arg value="-ignore"/>
+      <arg value="${webapp.main}"/>
+    </java>
+  </target>
+
+  <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+  <target name="build" depends="update-jar-cli, gwtc" description="Build this project" />
+
+  <target name="war" description="Create a war file">
+    <war destfile="${proj.name}.war" webxml="war/WEB-INF/web.xml">
+    	<fileset dir="war" />
+    </war>
+  </target>
+
+  <target name="clean" description="Cleans this project">
+    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="war/${webapp.name}" failonerror="false" />
+  	<delete file="${proj.name}.war" failonerror="false" />
+  </target>
+  
+	
+  <target name="undeploy" description="Undeploy the project from server">
+    <delete file="${jboss.root}/${proj.name}.war" />
+  </target>	
+	
+  <target name="update-jar-cli" description="Updates the ejb client jar">
+  	<delete file="${ejb.cli.jar}" />
+	<ant antfile="${ejb.mod}/build.xml" inheritall="false" target="jar-cli">
+      <property name="build.cli.jar" location="${ejb.cli.jar}" />
+	</ant>
+  </target>	
+  		
+  <target name="deploy" depends="war" description="Deploy webapp on server">
+    <copy file="${proj.name}.war" todir="${jboss.root}" />
+  </target>
+	
+  <target name="remote-deploy" description="Deploy webapp in remote server">
+  	<input
+  	  message="Insert remote server password:"
+  	  addproperty="srv.pass"
+  	/>
+    <scp file="${proj.name}.war" todir="${srv.user}:${srv.pass}@${srv.host}:${srv.root}" />
+  </target>
+
+  <target name="remote-undeploy" description="Undeploy webapp from remote server">
+  	<input
+  	  message="Insert remote server password:"
+  	  addproperty="srv.pass"
+  	/>
+  	<sshexec 
+  	  host="${srv.host}" 
+  	  username="${srv.user}"
+  	  password="${srv.pass}"
+  	  command="rm -r ${srv.root}/${proj.name}.war"
+  	/>
+  </target>
+
+</project>

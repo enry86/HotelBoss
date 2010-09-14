@@ -1,0 +1,32 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:hboss.nav='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.nav'>
+
+  <g:StackLayoutPanel unit='EM'>
+    <g:stack>
+      <g:header size='3'>Reception</g:header>
+      <hboss.nav:Menu ui:field='recep'/>
+    </g:stack>
+
+	<g:stack>
+      <g:header size='3'>Prenotazioni</g:header>
+      <hboss.nav:Menu ui:field='pren'/>
+    </g:stack>
+
+    <g:stack>
+      <g:header size='3'>Extra</g:header>
+      <hboss.nav:Menu ui:field='extra'/>
+    </g:stack>
+    
+    <g:stack>
+      <g:header size='3'>Biancheria</g:header>
+      <hboss.nav:Menu ui:field='bianc' />
+    </g:stack>
+
+    <g:stack>
+      <g:header size='3'>Configurazione</g:header>
+      <hboss.nav:Menu ui:field='conf'/>
+    </g:stack>
+  </g:StackLayoutPanel>
+</ui:UiBinder>

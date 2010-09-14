@@ -1,0 +1,22 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:hboss.nav='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.nav'>
+	
+  <ui:style field='style'
+  	type='cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu.Style'>
+    .entries {
+    	padding: 0.5em;
+    	line-height: 150%;
+    	width: 100%;
+    }
+    .item {
+    	display: block;
+    }
+    .item:hover {
+    	background: #d8d8d8;
+    }
+    
+  </ui:style>
+  <g:FlowPanel styleName='{style.entries}' ui:field='fp' />
+</ui:UiBinder>

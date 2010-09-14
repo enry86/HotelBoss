@@ -1,0 +1,23 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:hboss='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui'>
+  
+  <g:DockLayoutPanel unit='EM'>
+
+    <g:north size='5'>
+      <hboss:Header ui:field='header' />
+    </g:north>
+	<g:center>
+	<g:SplitLayoutPanel>
+      <g:west size='170'>
+        <hboss:Navigation ui:field='navigation' />
+      </g:west>
+
+      <g:center>
+	      <hboss:Content ui:field='content' />
+	  </g:center>
+	</g:SplitLayoutPanel>	
+    </g:center>
+  </g:DockLayoutPanel>
+</ui:UiBinder>

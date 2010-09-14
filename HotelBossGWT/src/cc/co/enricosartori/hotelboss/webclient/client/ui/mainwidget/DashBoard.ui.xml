@@ -1,0 +1,22 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:hboss.nav='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget'>
+  <g:DockLayoutPanel unit='EM'>
+    <g:north size="2">
+      <g:Label>HotelBoss - Attività di oggi</g:Label>
+    </g:north>
+    <g:center>
+    <g:HorizontalPanel width='100%' ui:field='hp'>
+      <g:DisclosurePanel width='300px' ui:field='dis_left'>
+  		<g:header>Arrivi di oggi</g:header>
+  		<g:Label>Not implemented yet</g:Label>
+  	  </g:DisclosurePanel>
+  	  <g:DisclosurePanel width='300px' ui:field='dis_right'>
+  		<g:header>Partenze di oggi</g:header>
+  	    <g:Label>Not implemented yet</g:Label>
+      </g:DisclosurePanel>
+    </g:HorizontalPanel>
+    </g:center>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

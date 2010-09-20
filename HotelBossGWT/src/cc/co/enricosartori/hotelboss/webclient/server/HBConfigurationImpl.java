@@ -5,6 +5,7 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cc.co.enricosartori.hotelboss.core.ConfigurationRemote;
@@ -22,6 +23,7 @@ public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfi
 			ctx = new InitialContext();
 			hbConf = (ConfigurationRemote) ctx.lookup("HotelBossEAR/Configuration/remote");
 		} catch (Exception e) {
+			GWT.log("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}

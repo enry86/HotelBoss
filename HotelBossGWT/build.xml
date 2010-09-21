@@ -7,7 +7,7 @@
   <property name="gwt.args" value="" />
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="/home/enry/gwt-2.0.3" />
+  <property name="gwt.sdk" location="/home/enry/gwt" />
 
   <!-- Jboss webserver root -->
   <property name="jboss.root" location="/home/enry/srv/jboss/server/default/deploy" />	

@@ -61,7 +61,7 @@
         <path refid="project.class.path"/>
       </classpath>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
-      <jvmarg value="-Xmx256M"/>
+      <jvmarg value="-Xmx512M"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg line="${gwt.args}"/>
       <arg value="${webapp.main}"/>
@@ -74,7 +74,7 @@
         <pathelement location="src"/>
         <path refid="project.class.path"/>
       </classpath>
-      <jvmarg value="-Xmx256M"/>
+      <jvmarg value="-Xmx512M"/>
       <arg value="-startupUrl"/>
       <!--<arg value="${proj.name}.html"/> -->
       <arg value="http://127.0.0.1:8080/hotelbossgwt/"/>

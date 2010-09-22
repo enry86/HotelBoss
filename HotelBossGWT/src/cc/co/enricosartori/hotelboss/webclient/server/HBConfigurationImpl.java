@@ -29,6 +29,7 @@ public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfi
 	}
 	
 	public List<Price> get_pricelist() {
+		GWT.log("eh dai il servizio l'ho trovato...");
 		return hbConf.get_pricelist();
 	}
 

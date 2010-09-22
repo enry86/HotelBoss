@@ -20,6 +20,7 @@ public class Configuration implements ConfigurationRemote {
 	@Override
 	public List<Price> get_pricelist() {
 		// TODO Auto-generated method stub
+		System.out.println("eccheccazzo...");
 		return null;
 	}
 	

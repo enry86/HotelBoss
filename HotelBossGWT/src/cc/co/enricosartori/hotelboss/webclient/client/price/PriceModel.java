@@ -78,11 +78,13 @@ public class PriceModel {
 				new AsyncCallback<List<Price>>() {
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
+						GWT.log("FAILURE!");
 					}
 
 					public void onSuccess(List<Price> result) {
 						pricelist.clear();
 						read_pricelist(result);
+						GWT.log("SUCCESS!");
 						callback.onSuccess(null);
 					}
 				});

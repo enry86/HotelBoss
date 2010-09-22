@@ -11,15 +11,20 @@
 	<property name="srv.user" value="enry" />
 	<property name="srv.tmp" location="/home/enry/tmp" />
 	
-	<target name="ear" depends="get-components">
+	<target name="ear">
 		<ear destfile="${ant.project.name}.ear" 
   			appxml="${cont.dir}/application.xml">
   			<fileset dir="${cont.dir}" includes="*.jar,*.war"/>
 		</ear>
 	</target>
 	
-	<target name="get-components">
-		<copy file="${web.path}/${web.war}" todir="${cont.dir}" />
+	<target name="get-components" depends="get-war, get-ejbjar"/>
+	
+	<target name="get-war">
+		<copy file="${web.path}/${web.war}" todir="${cont.dir}" />		
+	</target>
+	
+	<target name="get-ejbjar">
 		<copy file="${ejb.path}/${ejb.jar}" todir="${cont.dir}" />
 	</target>
 	

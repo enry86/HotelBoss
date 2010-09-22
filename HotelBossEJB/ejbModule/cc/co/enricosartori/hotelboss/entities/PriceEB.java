@@ -5,11 +5,20 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Price")
+@NamedQueries({
+	@NamedQuery(name="Pricelist_dateAsc",
+			query="select price from PriceEB as price order by price.start_d asc")
+})
+
 public class PriceEB implements Serializable {
+	public static final String NQ_PRICELIST_ASC = "Pricelist_dateAsc";
+	
 	@Id
 	int price_id;
 	Date start_d;

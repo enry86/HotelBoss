@@ -12,7 +12,7 @@ public class Price implements Serializable {
 	double fb;
 	double hb;
 	double bb;
-	
+	String state;
 	
 	public int getPrice_id() {
 		return price_id;
@@ -50,6 +50,11 @@ public class Price implements Serializable {
 	public void setBb(double d) {
 		this.bb = d;
 	}
-	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	
 }

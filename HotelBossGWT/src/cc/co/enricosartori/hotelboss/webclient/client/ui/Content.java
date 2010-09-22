@@ -2,6 +2,7 @@ package cc.co.enricosartori.hotelboss.webclient.client.ui;
 
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.DashBoard;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -20,10 +21,16 @@ public class Content extends Composite {
 	}
 	
 	public void change_wid (Widget w) {
-		main.add(w);
-		int new_i = main.getWidgetIndex(w);
-		int old_i = main.getVisibleWidget();
-		main.showWidget(new_i);
-		main.remove(old_i);
+			main.add(w);
+			int new_i = main.getWidgetIndex(w);
+			int old_i = main.getVisibleWidget();
+			main.showWidget(new_i);
+			main.remove(old_i);
+			current = w;
+	}
+	
+	public boolean is_loaded (Widget w) {
+		return current == w;
 	}
 }
+

@@ -1,7 +1,12 @@
 package cc.co.enricosartori.hotelboss.core;
 
 import java.util.List;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import cc.co.enricosartori.hotelboss.dao.PriceDAO;
+import cc.co.enricosartori.hotelboss.dao.PriceDAOLocal;
 import cc.co.enricosartori.hotelboss.dto.Price;
 
 /**
@@ -9,7 +14,8 @@ import cc.co.enricosartori.hotelboss.dto.Price;
  */
 @Stateless
 public class Configuration implements ConfigurationRemote {
-
+	@EJB
+	PriceDAOLocal price_dao;
     /**
      * Default constructor. 
      */
@@ -19,9 +25,8 @@ public class Configuration implements ConfigurationRemote {
 
 	@Override
 	public List<Price> get_pricelist() {
-		// TODO Auto-generated method stub
-		System.out.println("eccheccazzo...");
-		return null;
+		System.out.println("Retrieving pricelist");
+		return price_dao.get_pricelist();
 	}
 	
 	public void store_pricelist(List<Price> pl) {

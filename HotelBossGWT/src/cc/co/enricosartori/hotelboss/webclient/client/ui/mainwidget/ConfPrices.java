@@ -9,6 +9,7 @@ import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.webclient.client.price.PriceController;
 import cc.co.enricosartori.hotelboss.webclient.client.price.PriceModel;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable;
+import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable.Listener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -81,6 +82,10 @@ public class ConfPrices extends Composite implements MainWidget {
 		initWidget(dock);
 	}
 	
+	public void set_table_callback (Listener l) {
+		table.set_listener(l);
+	}
+	
 	public void update_table () {
 		reset_table();
 		p_mod.fetch_pricelist(callback);
@@ -91,14 +96,18 @@ public class ConfPrices extends Composite implements MainWidget {
 		table.reset();
 	}
 	
+	public Price get_price (int index) {
+		return hm_table.get(index);
+	}
+	
 	public void add_entry (Price p) {
-		ArrayList<String> p_cont = new ArrayList<String>();
-		p_cont.add(p.getStart_d().toString());
-		p_cont.add(p.getStart_d().toString());
-		p_cont.add(Double.toString(p.getFb()));
-		p_cont.add(Double.toString(p.getHb()));
-		p_cont.add(Double.toString(p.getBb()));
-		int index = table.add_row(p_cont);
+		ArrayList<String> p_tab = new ArrayList<String>();
+		p_tab.add(p.getStart_d().toString());
+		p_tab.add(p.getStart_d().toString());
+		p_tab.add(Double.toString(p.getFb()));
+		p_tab.add(Double.toString(p.getHb()));
+		p_tab.add(Double.toString(p.getBb()));
+		int index = table.add_row(p_tab);
 		hm_table.put(new Integer(index), p);
 	}
 	

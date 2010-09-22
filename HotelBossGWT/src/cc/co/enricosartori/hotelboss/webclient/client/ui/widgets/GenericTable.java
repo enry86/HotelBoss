@@ -3,17 +3,26 @@ package cc.co.enricosartori.hotelboss.webclient.client.ui.widgets;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
 public class GenericTable extends Composite {
 	interface Binder extends UiBinder<DockLayoutPanel, GenericTable> {}
 	private static final Binder binder = GWT.create(Binder.class);
 	private int cols;
 	private int row;
+	
+	public interface Listener {
+		public void row_selected(int index);
+	}
+	
+	private Listener listener;
 	
 	@UiField FlexTable header;
 	@UiField FlexTable table;
@@ -41,5 +50,19 @@ public class GenericTable extends Composite {
 			table.setText(row, i, (String) e.get(i));
 		}
 		return row++;
+	}
+	
+	public void set_listener (Listener l) {
+		this.listener = l;
+	}
+	
+	@UiHandler("table") 
+	public void onTableClicked (ClickEvent e) {
+		Cell c = table.getCellForEvent(e);
+		if (c != null && listener != null) {
+			int index = c.getRowIndex();
+			listener.row_selected(index);
+		}
+		
 	}
 }

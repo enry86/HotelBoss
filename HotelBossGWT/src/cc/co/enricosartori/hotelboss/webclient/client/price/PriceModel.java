@@ -54,6 +54,11 @@ public class PriceModel {
 		this.curr_state = null;
 	}
 	
+	public void select_price (Price p) {
+		current = p;
+		curr_state = pricelist.get(p);
+	}
+	
 	private void store_pricelist() {
 		//TODO
 		GWT.log("Here i should put everithing on the server");

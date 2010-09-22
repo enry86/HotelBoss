@@ -54,8 +54,10 @@ public class Menu extends Composite {
 
 		link.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent ev) {
-				e.widget.init();
-				cont.change_wid((Widget) e.widget);
+				if (e.widget != null) {
+					e.widget.init();
+					cont.change_wid((Widget) e.widget);
+				}
 			}
 		});
 	}

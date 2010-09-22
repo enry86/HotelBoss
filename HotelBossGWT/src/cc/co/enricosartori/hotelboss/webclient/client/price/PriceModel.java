@@ -66,10 +66,12 @@ public class PriceModel {
 	}
 	
 	private void read_pricelist (List<Price> list) {
-		Iterator<Price> i = list.iterator();
-		while (i.hasNext()) {
-			Price tmp = (Price) i.next();
-			pricelist.put(tmp, PriceState.STORED);
+		if (list != null) {
+			Iterator<Price> i = list.iterator();
+			while (i.hasNext()) {
+				Price tmp = (Price) i.next();
+				pricelist.put(tmp, PriceState.STORED);
+			}
 		}
 	}
 	

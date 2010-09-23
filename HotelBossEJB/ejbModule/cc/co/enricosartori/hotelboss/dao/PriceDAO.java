@@ -29,6 +29,40 @@ public class PriceDAO implements PriceDAOLocal {
 		return convert_list(l);
 	}
 	
+	public void insert_price (Price p) {
+		PriceEB ent = new PriceEB();
+		ent.setPrice_id(get_priceid());
+		update_entity(ent, p);
+		ent_man.persist(ent);
+	}
+	
+	public void update_price (Price p) {
+		PriceEB e = ent_man.find(PriceEB.class, p.getPrice_id());
+		update_entity(e, p);
+		ent_man.merge(e);
+	}
+	
+	public void delete_price (Price p) {
+		PriceEB e = ent_man.find(PriceEB.class, p.getPrice_id());
+		update_entity(e, p);
+		ent_man.remove(e);
+	}
+	
+	private void update_entity (PriceEB e, Price p) {	
+		e.setStart_d(p.getStart_d());
+		e.setEnd_d(p.getEnd_d());
+		e.setFb(p.getFb());
+		e.setHb(p.getHb());
+		e.setBb(p.getBb());
+	}
+	
+	
+	private int get_priceid() {
+		Query q = ent_man.createNamedQuery(PriceEB.NQ_MAX_PRICEID);
+		List l = q.getResultList();
+		int res = (Integer) l.get(0);
+		return res + 1;		
+	}
 	
 	private List<Price> convert_list(List<PriceEB> list) {
 		Iterator<PriceEB> i = list.iterator();

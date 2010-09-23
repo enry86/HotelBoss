@@ -1,7 +1,7 @@
 package cc.co.enricosartori.hotelboss.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,11 +13,19 @@ import javax.persistence.Table;
 @Table(name="Price")
 @NamedQueries({
 	@NamedQuery(name="Pricelist_dateAsc",
-			query="select price from PriceEB as price order by price.start_d asc")
+			query="select price from PriceEB as price order by price.start_d asc"),
+	@NamedQuery(name="Pricelist_maxId",
+			query="select max(price.price_id) from PriceEB as price")
 })
 
 public class PriceEB implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5664153561686682429L;
+
 	public static final String NQ_PRICELIST_ASC = "Pricelist_dateAsc";
+	public static final String NQ_MAX_PRICEID = "Pricelist_maxId";
 	
 	@Id
 	int price_id;

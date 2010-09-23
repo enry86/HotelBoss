@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.price;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.List;
@@ -30,22 +31,28 @@ public class PriceModel {
 		curr_state = PriceState.NEW;
 	}
 	
-	public void edit_price (Price p) {
-		current = p;
-		curr_state = PriceState.UPDATED;
-	}
-	
-	public void dele_price (Price p) {
-		if (pricelist.containsKey(p)) {
-			pricelist.put(p, PriceState.DELETED);
-			store_pricelist();
+	public void edit_price (Price p, AsyncCallback<Void> call) {
+		update_curr(p);
+		if (curr_state != PriceState.NEW) {
+			curr_state = PriceState.UPDATED;
 		}
+		save_price(call);
 	}
 	
-	public void save_price () {
+	public void dele_price (AsyncCallback<Void> call) {
+		pricelist.put(current, PriceState.DELETED);
+		store_pricelist(call);
+	}
+	
+	public void select_price (Price p) {
+		current = p;
+		curr_state = pricelist.get(p);
+	}
+	
+	private void save_price (AsyncCallback<Void> call) {
 		if (current != null) {
 			pricelist.put(current, curr_state);
-			store_pricelist();
+			store_pricelist(call);
 		}
 	}
 	
@@ -54,14 +61,33 @@ public class PriceModel {
 		this.curr_state = null;
 	}
 	
-	public void select_price (Price p) {
-		current = p;
-		curr_state = pricelist.get(p);
+	private void store_pricelist(AsyncCallback<Void> call) {
+		Iterator<Price> i = get_iterator();
+		ArrayList<Price> l = new ArrayList<Price>();
+		while (i.hasNext()) {
+			Price p = i.next();
+			p.setState(pricelist.get(p).toString());
+			GWT.log(p.getState());
+			l.add(p);
+		}
+		send_pricelist(l, call);		
 	}
-	
-	private void store_pricelist() {
-		//TODO
-		GWT.log("Here i should put everithing on the server");
+/*	
+	private String state_tostring(PriceState s) {
+		String res = "";
+		if (s == PriceState.NEW) res = "NEW";
+		else if (s == PriceState.UPDATED) res = "UPDATED";
+		else if (s == PriceState.DELETED) res = "DELETED";
+		else if (s == PriceState.STORED) res = "STORED";
+		return res;
+	}
+*/	
+	private void update_curr (Price p) {
+		current.setStart_d(p.getStart_d());
+		current.setEnd_d(p.getEnd_d());
+		current.setFb(p.getFb());
+		current.setHb(p.getHb());
+		current.setBb(p.getBb());
 	}
 	
 	public Iterator<Price> get_iterator () {
@@ -79,6 +105,24 @@ public class PriceModel {
 			}
 		}
 	}
+	
+	private void send_pricelist (List<Price> list, final AsyncCallback<Void> call) {
+		hbconf.store_pricelist(list, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				GWT.log("SERVER ERROR");
+				call.onFailure(caught);
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				call.onSuccess(result);
+			}
+			
+		});
+	}
+	
 	
 	public void fetch_pricelist (final AsyncCallback<Void> callback) {
 		hbconf.get_pricelist( 

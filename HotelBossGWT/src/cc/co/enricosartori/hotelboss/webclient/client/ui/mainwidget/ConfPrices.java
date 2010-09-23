@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -43,6 +44,7 @@ public class ConfPrices extends Composite implements MainWidget {
 	
 	private PriceController p_cont; 
 	private PriceModel p_mod;
+	
 	private TextBox fb_tb, hb_tb, bb_tb;
 	private Button new_b, save_b, canc_b, dele_b;
 	
@@ -74,6 +76,8 @@ public class ConfPrices extends Composite implements MainWidget {
 		p_cont = new PriceController(p_mod, this);
 		hm_table = new HashMap<Integer, Price>();
 		update_table();
+		dp_in = new DatePicker();
+		dp_out = new DatePicker();
 		content.add(setup_dp_panel(dp_in, "Data di arrivo"));
 		content.add(setup_dp_panel(dp_out, "Data di partenza"));
 		content.add(setup_fields_panel());
@@ -95,9 +99,28 @@ public class ConfPrices extends Composite implements MainWidget {
 		hm_table.clear();
 		table.reset();
 	}
+
 	
-	public Price get_price (int index) {
-		return hm_table.get(index);
+	public Price get_price () {
+		Price res = new Price();
+		res.setStart_d(dp_in.getValue());
+		res.setEnd_d(dp_out.getValue());
+		try {
+			res.setFb(get_double(fb_tb.getText()));
+			res.setHb(get_double(hb_tb.getText()));
+			res.setBb(get_double(bb_tb.getText()));
+		} catch (Exception e) {
+			show_error("Errore nei dati inseriti");
+			return null;
+		}
+		return res;
+	}
+	
+	public Price show_price (int index) {
+		Price sel = hm_table.get(index);
+		update_fields(sel);
+		set_editable(true);
+		return sel;
 	}
 	
 	public void add_entry (Price p) {
@@ -111,10 +134,30 @@ public class ConfPrices extends Composite implements MainWidget {
 		hm_table.put(new Integer(index), p);
 	}
 	
+	private void update_fields (Price p) {
+		dp_in.setValue(p.getStart_d());
+		dp_out.setValue(p.getEnd_d());
+		fb_tb.setText(Double.toString(p.getFb()));
+		hb_tb.setText(Double.toString(p.getHb()));
+		bb_tb.setText(Double.toString(p.getBb()));
+	}
+	
+	public void reset_fields () {
+		dp_in.setValue(new Date());
+		dp_out.setValue(new Date());
+		fb_tb.setText("");
+		hb_tb.setText("");
+		bb_tb.setText("");
+	}
+	
+	private double get_double (String s) {
+		double d = Double.parseDouble(s);
+		return d;
+	}
+	
 	private VerticalPanel setup_dp_panel (DatePicker dp, String title) {
 		VerticalPanel res = new VerticalPanel();
 		Label l_tit = new Label(title);
-		dp = new DatePicker();
 		dp.setValue(new Date());
 		dp.setTitle(title);
 		res.add(l_tit);
@@ -178,7 +221,7 @@ public class ConfPrices extends Composite implements MainWidget {
 		
 		dele_b.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				p_cont.dele_price(new Price());
+				p_cont.dele_price();
 			}
 		});
 		res.add(new_b);
@@ -186,5 +229,24 @@ public class ConfPrices extends Composite implements MainWidget {
 		res.add(dele_b);
 		res.add(canc_b);
 		return res;
+	}
+
+	public void show_error(String message) {
+		final DialogBox err = new DialogBox(true);
+		VerticalPanel vp = new VerticalPanel();
+		Label l = new Label(message);
+		Button ok = new Button("OK");
+		ok.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				err.hide();
+			}
+		});
+		vp.add(l);
+		vp.add(ok);
+		err.add(vp);
+		err.setText("Errore");
+		err.setAnimationEnabled(true);
+		err.show();
+		
 	}
 }

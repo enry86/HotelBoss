@@ -1,6 +1,7 @@
 package cc.co.enricosartori.hotelboss.webclient.client.price;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
@@ -18,6 +19,20 @@ public class PriceController {
 		
 	}
 	
+	private AsyncCallback<Void> store_callback = new AsyncCallback<Void>() {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			view.show_error("Errore di connessione col Server!");
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			view.update_table();
+		}
+		
+	};
+	
 	public PriceController (PriceModel model, ConfPrices view) {
 		this.model = model;
 		this.view = view;
@@ -32,26 +47,27 @@ public class PriceController {
 	
 	public void cancel () {
 		model.cancel();
+		view.reset_fields();
 		view.set_editable(false);
-	}
-	
-	public void edit_price (Price p) {
-		model.edit_price(p);
-		view.set_editable(true);
 	}
 	
 	public void save_price () {
-		model.save_price();
-		view.set_editable(false);
+		Price p = view.get_price();
+		if (p != null) {
+			view.reset_fields();
+			model.edit_price(p, store_callback);
+			view.set_editable(false);
+		}
 	}
 	
-	public void dele_price (Price p) {
-		model.dele_price(p);
+	public void dele_price () {
+		model.dele_price(store_callback);
+		view.reset_fields();
 		view.set_editable(false);
 	}
 	
 	public void select_price (int index) {
-		Price p = view.get_price(index);
+		Price p = view.show_price(index);
 		model.select_price(p);
 		GWT.log(Integer.toString(index));
 	}

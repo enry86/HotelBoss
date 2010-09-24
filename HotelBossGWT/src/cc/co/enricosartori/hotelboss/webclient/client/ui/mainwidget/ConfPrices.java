@@ -108,9 +108,9 @@ public class ConfPrices extends Composite implements MainWidget {
 		res.setStart_d(dp_in.getValue());
 		res.setEnd_d(dp_out.getValue());
 		try {
-			res.setFb(get_double(fb_tb.getText()));
-			res.setHb(get_double(hb_tb.getText()));
-			res.setBb(get_double(bb_tb.getText()));
+			res.setFb(get_float(fb_tb.getText()));
+			res.setHb(get_float(hb_tb.getText()));
+			res.setBb(get_float(bb_tb.getText()));
 		} catch (Exception e) {
 			show_error("Errore nei dati inseriti");
 			return null;
@@ -153,8 +153,9 @@ public class ConfPrices extends Composite implements MainWidget {
 		bb_tb.setText("");
 	}
 	
-	private double get_double (String s) {
-		double d = Double.parseDouble(s);
+	private float get_float (String s) {
+		s.replace(',', '.');
+		float d = Float.parseFloat(s);
 		return d;
 	}
 	

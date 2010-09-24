@@ -31,9 +31,9 @@ public class PriceEB implements Serializable {
 	int price_id;
 	Date start_d;
 	Date end_d;
-	double fb;
-	double hb;
-	double bb;
+	float fb;
+	float hb;
+	float bb;
 	
 	
 	public int getPrice_id() {
@@ -54,22 +54,22 @@ public class PriceEB implements Serializable {
 	public void setEnd_d(Date endD) {
 		end_d = endD;
 	}
-	public double getFb() {
+	public float getFb() {
 		return fb;
 	}
-	public void setFb(double d) {
+	public void setFb(float d) {
 		this.fb = d;
 	}
-	public double getHb() {
+	public float getHb() {
 		return hb;
 	}
-	public void setHb(double d) {
+	public void setHb(float d) {
 		this.hb = d;
 	}
-	public double getBb() {
+	public float getBb() {
 		return bb;
 	}
-	public void setBb(double d) {
+	public void setBb(float d) {
 		this.bb = d;
 	}
 	

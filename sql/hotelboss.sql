@@ -24,9 +24,9 @@ create table if not exists `Price` (
 `price_id` integer not null,
 `start_d` date not null,
 `end_d` date not null,
-`fb` numeric(5, 2) not null,
-`hb` numeric(5, 2) not null,
-`bb` numeric(5, 2) not null,
+`fb` numeric(10, 2) not null,
+`hb` numeric(10, 2) not null,
+`bb` numeric(10, 2) not null,
 primary key(`price_id`));
 
 

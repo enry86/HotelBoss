@@ -16,6 +16,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -128,21 +129,23 @@ public class ConfPrices extends Composite implements MainWidget {
 	public void add_entry (Price p) {
 		ArrayList<String> p_tab = new ArrayList<String>();
 		DateTimeFormat df = DateTimeFormat.getFormat("dd/MM/yyyy");
+		NumberFormat nf = NumberFormat.getFormat("#########.00");
 		p_tab.add(df.format(p.getStart_d()));
 		p_tab.add(df.format(p.getEnd_d()));
-		p_tab.add(Double.toString(p.getFb()));
-		p_tab.add(Double.toString(p.getHb()));
-		p_tab.add(Double.toString(p.getBb()));
+		p_tab.add(nf.format(p.getFb()));
+		p_tab.add(nf.format(p.getHb()));
+		p_tab.add(nf.format(p.getBb()));
 		int index = table.add_row(p_tab);
 		hm_table.put(new Integer(index), p);
 	}
 	
 	private void update_fields (Price p) {
+		NumberFormat nf = NumberFormat.getFormat("#########.00");
 		dp_in.setValue(p.getStart_d());
 		dp_out.setValue(p.getEnd_d());
-		fb_tb.setText(Double.toString(p.getFb()));
-		hb_tb.setText(Double.toString(p.getHb()));
-		bb_tb.setText(Double.toString(p.getBb()));
+		fb_tb.setText(nf.format(p.getFb()));
+		hb_tb.setText(nf.format(p.getHb()));
+		bb_tb.setText(nf.format(p.getBb()));
 	}
 	
 	public void reset_fields () {
@@ -154,7 +157,7 @@ public class ConfPrices extends Composite implements MainWidget {
 	}
 	
 	private float get_float (String s) {
-		s.replace(',', '.');
+		s = s.replace(',', '.');
 		float d = Float.parseFloat(s);
 		return d;
 	}

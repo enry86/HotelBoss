@@ -41,7 +41,7 @@ public class GenericTable extends Composite {
 	}
 	
 	public void reset() {
-		table.clear();
+		table.removeAllRows();
 		row = 0;
 	}
 	

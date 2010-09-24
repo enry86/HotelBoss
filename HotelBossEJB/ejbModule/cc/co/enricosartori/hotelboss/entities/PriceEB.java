@@ -13,9 +13,9 @@ import javax.persistence.Table;
 @Table(name="Price")
 @NamedQueries({
 	@NamedQuery(name="Pricelist_dateAsc",
-			query="select price from PriceEB as price order by price.start_d asc"),
+			query="select price from PriceEB price order by price.start_d asc"),
 	@NamedQuery(name="Pricelist_maxId",
-			query="select max(price.price_id) from PriceEB as price")
+			query="select max(price.price_id) from PriceEB price")
 })
 
 public class PriceEB implements Serializable {

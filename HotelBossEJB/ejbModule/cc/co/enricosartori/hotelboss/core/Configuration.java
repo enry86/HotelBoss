@@ -30,13 +30,18 @@ public class Configuration implements ConfigurationRemote {
 	}
 	
 	public void store_pricelist(List<Price> pl) {
-		System.out.println("Storing pricelist");
 		Iterator<Price> i = pl.iterator();
 		while (i.hasNext()){
 			Price tmp = i.next();
-			if (tmp.getState().compareTo("NEW") == 0) price_dao.insert_price(tmp);
-			else if (tmp.getState().compareTo("UPDATED") == 0) price_dao.update_price(tmp);
-			else if (tmp.getState().compareTo("DELETED") == 0) price_dao.delete_price(tmp);
+			if (tmp.getState().compareTo("NEW") == 0) {
+				price_dao.insert_price(tmp);
+			}
+			else if (tmp.getState().compareTo("UPDATED") == 0) {
+				price_dao.update_price(tmp);
+			}
+			else if (tmp.getState().compareTo("DELETED") == 0) {
+				price_dao.delete_price(tmp);
+			}
 		}
 	}
 }

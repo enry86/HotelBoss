@@ -72,16 +72,7 @@ public class PriceModel {
 		}
 		send_pricelist(l, call);		
 	}
-/*	
-	private String state_tostring(PriceState s) {
-		String res = "";
-		if (s == PriceState.NEW) res = "NEW";
-		else if (s == PriceState.UPDATED) res = "UPDATED";
-		else if (s == PriceState.DELETED) res = "DELETED";
-		else if (s == PriceState.STORED) res = "STORED";
-		return res;
-	}
-*/	
+
 	private void update_curr (Price p) {
 		current.setStart_d(p.getStart_d());
 		current.setEnd_d(p.getEnd_d());
@@ -129,13 +120,11 @@ public class PriceModel {
 				new AsyncCallback<List<Price>>() {
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
-						GWT.log("FAILURE!");
 					}
 
 					public void onSuccess(List<Price> result) {
 						pricelist.clear();
 						read_pricelist(result);
-						GWT.log("SUCCESS!");
 						callback.onSuccess(null);
 					}
 				});

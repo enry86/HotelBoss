@@ -1,6 +1,5 @@
 package cc.co.enricosartori.hotelboss.webclient.client.price;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import cc.co.enricosartori.hotelboss.dto.Price;
@@ -69,7 +68,6 @@ public class PriceController {
 	public void select_price (int index) {
 		Price p = view.show_price(index);
 		model.select_price(p);
-		GWT.log(Integer.toString(index));
 	}
 	
 }

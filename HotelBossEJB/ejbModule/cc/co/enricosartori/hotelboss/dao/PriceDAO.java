@@ -33,6 +33,7 @@ public class PriceDAO implements PriceDAOLocal {
 		PriceEB ent = new PriceEB();
 		ent.setPrice_id(get_priceid());
 		update_entity(ent, p);
+		System.out.println(ent.getPrice_id());
 		ent_man.persist(ent);
 	}
 	
@@ -58,10 +59,15 @@ public class PriceDAO implements PriceDAOLocal {
 	
 	
 	private int get_priceid() {
-		Query q = ent_man.createNamedQuery(PriceEB.NQ_MAX_PRICEID);
-		List l = q.getResultList();
-		int res = (Integer) l.get(0);
-		return res + 1;		
+		int res = 0;
+		try {
+			Query q = ent_man.createNamedQuery(PriceEB.NQ_MAX_PRICEID);
+			Integer i = (Integer) q.getSingleResult();
+			res = i.intValue();
+		} catch (Exception e) {
+			res = 0;
+		}
+		return res + 1;
 	}
 	
 	private List<Price> convert_list(List<PriceEB> list) {

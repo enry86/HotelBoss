@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable.Li
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -125,8 +127,9 @@ public class ConfPrices extends Composite implements MainWidget {
 	
 	public void add_entry (Price p) {
 		ArrayList<String> p_tab = new ArrayList<String>();
-		p_tab.add(p.getStart_d().toString());
-		p_tab.add(p.getStart_d().toString());
+		DateTimeFormat df = DateTimeFormat.getFormat("dd/MM/yyyy");
+		p_tab.add(df.format(p.getStart_d()));
+		p_tab.add(df.format(p.getEnd_d()));
 		p_tab.add(Double.toString(p.getFb()));
 		p_tab.add(Double.toString(p.getHb()));
 		p_tab.add(Double.toString(p.getBb()));

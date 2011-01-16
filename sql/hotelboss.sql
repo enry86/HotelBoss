@@ -43,3 +43,17 @@ create table if not exists `extras` (
 `price` numeric(6, 2) not null, 
 primary key (`id`));
 
+
+create table if not exists `reductions` (
+`id` integer not null auto_increment,
+`descr` text not null,
+`value` numeric (10, 2) not null,
+`red_type` integer not null,
+`perc` boolean not null,
+primary key (`id`));
+
+
+
+
+
+

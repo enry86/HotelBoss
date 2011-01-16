@@ -33,7 +33,6 @@ public class PriceDAO implements PriceDAOLocal {
 		PriceEB ent = new PriceEB();
 		ent.setPrice_id(get_priceid());
 		update_entity(ent, p);
-		System.out.println(ent.getPrice_id());
 		ent_man.persist(ent);
 	}
 	

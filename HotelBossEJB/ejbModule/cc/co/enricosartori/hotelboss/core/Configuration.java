@@ -7,7 +7,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import cc.co.enricosartori.hotelboss.dao.PriceDAOLocal;
+import cc.co.enricosartori.hotelboss.dao.ReductionDAOLocal;
 import cc.co.enricosartori.hotelboss.dto.Price;
+import cc.co.enricosartori.hotelboss.dto.Reduction;
 
 /**
  * Session Bean implementation class Configuration
@@ -16,12 +18,12 @@ import cc.co.enricosartori.hotelboss.dto.Price;
 public class Configuration implements ConfigurationRemote {
 	@EJB
 	PriceDAOLocal price_dao;
+	@EJB
+	ReductionDAOLocal red_dao;
     /**
      * Default constructor. 
      */
-    public Configuration() {
-        // TODO Auto-generated constructor stub
-    }
+    public Configuration() {}
 
 	@Override
 	public List<Price> get_pricelist() {
@@ -44,4 +46,30 @@ public class Configuration implements ConfigurationRemote {
 			}
 		}
 	}
+	
+	
+	public List<Reduction>  get_reductions () {
+		return red_dao.get_reductions();
+	}
+	
+	
+	public void store_reductions (List<Reduction> rl) {
+		Iterator<Reduction> i = rl.iterator();
+		while (i.hasNext()) {
+			Reduction tmp = i.next();
+			if (tmp.getState().equals("NEW")) {
+				red_dao.insert_red (tmp);
+			}
+			else if (tmp.getState().equals("UPDATED")) {
+				red_dao.update_red (tmp);
+			}
+			else if (tmp.getState().equals("DELETED")) {
+				red_dao.delete_red (tmp);
+			}
+		}
+	}
+	
+	
+	
+	
 }

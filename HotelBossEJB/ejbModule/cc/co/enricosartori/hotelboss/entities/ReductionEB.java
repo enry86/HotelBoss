@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table (name="reductions")
 @NamedQueries ({
 		@NamedQuery (name="Reductions",
-				query="select * from reductions")
+				query="select red from ReductionEB red")
 })
 
 

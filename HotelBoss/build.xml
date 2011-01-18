@@ -11,7 +11,7 @@
 	<property name="srv.user" value="enry" />
 	<property name="srv.tmp" location="/home/enry/tmp" />
 	
-	<target name="ear">
+	<target name="ear" depends="get-components">
 		<ear destfile="${ant.project.name}.ear" 
   			appxml="${cont.dir}/application.xml">
   			<fileset dir="${cont.dir}" includes="*.jar,*.war"/>

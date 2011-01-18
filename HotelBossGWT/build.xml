@@ -19,7 +19,7 @@
   <property name="webapp.main" value="cc.co.enricosartori.hotelboss.webclient.HotelBossGWT" />
   
   <!-- Remote server configuration -->
-  <property name="srv.host" value="192.168.0.10" />
+  <property name="srv.host" value="192.168.0.6" />
   <property name="srv.root" location="/home/enry/srv/jboss/server/default/deploy" />
   <property name="srv.user" value="enry" />
   <property name="srv.tmp" location="/home/enry/hotelbossgwt_tmp" />
@@ -84,6 +84,24 @@
     </java>
   </target>
 
+  <target name="devmode-remote" depends="javac" description="Run development mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <jvmarg value="-Xmx512M"/>
+      <arg value="-startupUrl"/>
+      <!--<arg value="${proj.name}.html"/> -->
+      <arg value="http://192.168.0.6:8080/hotelbossgwt/"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args} -noserver"/>
+      <arg value="${webapp.main}"/>
+    </java>
+  </target>	
+	
+	
+	
   <target name="eclipse.generate" depends="libs" description="Generate eclipse project">
     <java failonerror="true" fork="true" classname="com.google.gwt.user.tools.WebAppCreator">
       <classpath>

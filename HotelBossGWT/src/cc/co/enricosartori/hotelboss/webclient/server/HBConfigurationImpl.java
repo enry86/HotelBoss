@@ -10,6 +10,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cc.co.enricosartori.hotelboss.core.ConfigurationRemote;
 import cc.co.enricosartori.hotelboss.dto.Price;
+import cc.co.enricosartori.hotelboss.dto.Reduction;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBConfiguration;
 
 public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfiguration {
@@ -29,12 +30,19 @@ public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfi
 	}
 	
 	public List<Price> get_pricelist() {
-		GWT.log("eh dai il servizio l'ho trovato...");
 		return hbConf.get_pricelist();
 	}
 
 	public void store_pricelist(List<Price> list) {
 		hbConf.store_pricelist(list);
+	}
+	
+	public List<Reduction> get_reductions () {
+		return hbConf.get_reductions();
+	}
+	
+	public void store_reductions (List<Reduction> list) {
+		hbConf.store_reductions(list);
 	}
 
 }

@@ -67,7 +67,6 @@ public class PriceModel {
 		while (i.hasNext()) {
 			Price p = i.next();
 			p.setState(pricelist.get(p).toString());
-			GWT.log(p.getState());
 			l.add(p);
 		}
 		send_pricelist(l, call);		

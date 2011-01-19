@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.reduction;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import cc.co.enricosartori.hotelboss.dto.Price;
@@ -58,16 +59,19 @@ public class RedController {
 
 	public void dele_red() {
 		view.set_editable (false);
-		model.dele_red ();
+		model.dele_red (store_callback);
 		view.reset_fields ();	
 	}
 
 
 	public void save_red() {
-		view.set_editable (false);
-		model.save_red ();
-		view.reset_fields ();
-		
+		Reduction r = view.get_reduction ();
+		GWT.log(Integer.toString(r.getRed_type()));
+		if (r != null) {
+			view.set_editable (false);
+			model.edit_price(r, store_callback);
+			view.reset_fields ();
+		}
 	}
 	
 	

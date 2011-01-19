@@ -258,7 +258,25 @@ public class ConfRed extends Composite implements MainWidget{
 		err.setText("Errore");
 		err.setAnimationEnabled(true);
 		err.show();
-		
 	}
-
+	
+	
+	public Reduction get_reduction () {
+		Reduction res = new Reduction ();
+		int type = 0;		
+		try {
+			res.setDescr(des_tf.getValue());
+			res.setVal(new Float(val_tf.getValue()));
+			if (ty_red_rb.getValue()) type = RED_VAL;
+			else if (ty_sup_rb.getValue()) type = SUP_VAL;
+			else if (ty_tar_rb.getValue()) type = TAR_VAL;
+			res.setRed_type(type);
+			res.setPerc(per_t_rb.getValue());
+		}
+		catch (Exception e) {
+			show_error ("Errore nei dati inseriti");
+			return null;
+		}
+		return res;
+	}
 }

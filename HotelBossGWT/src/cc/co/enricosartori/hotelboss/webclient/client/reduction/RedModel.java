@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.reduction;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,20 @@ public class RedModel {
 	}
 	
 	
+	private void send_reductions (List<Reduction> lr, final AsyncCallback<Void> callback) {
+		hbconf.store_reductions(lr, 
+				new AsyncCallback<Void> () {
+					public void onFailure(Throwable caught) {
+						callback.onFailure(caught);
+					}
+
+					public void onSuccess(Void result) {
+						callback.onSuccess(result);
+					}
+				});
+	}
+	
+	
 	public void fetch_reductions (final AsyncCallback<Void> callback) {
 		hbconf.get_reductions ( 
 				new AsyncCallback<List<Reduction>>() {
@@ -56,6 +71,18 @@ public class RedModel {
 	}
 	
 	
+	public void store_reductions (final AsyncCallback<Void> callback) {
+		Iterator<Reduction> i = get_iterator ();
+		ArrayList<Reduction> l = new ArrayList<Reduction> ();
+		while (i.hasNext()) {
+			Reduction r = i.next();
+			r.setState(reductions.get(r).toString());
+			l.add(r);
+		}
+		send_reductions (l, callback);
+	}
+	
+	
 	public void select_red (Reduction r) {
 		current = r;
 		curr_state = reductions.get(r);
@@ -63,22 +90,46 @@ public class RedModel {
 	
 	
 	public void new_red () {
-		
+		Reduction r = new Reduction ();
+		current = r;
+		curr_state = RedState.NEW;
 	}
 	
 	
-	public void save_red () {
-		
+	public void save_red (AsyncCallback<Void> call) {
+		if (current != null) {
+			reductions.put(current, curr_state);
+			store_reductions (call);
+		}
 	}
 	
 	
-	public void dele_red () {
-		
+	public void edit_price (Reduction r, AsyncCallback<Void> call) {
+		update_curr (r);
+		if (curr_state != RedState.NEW) {
+			curr_state = RedState.UPDATED;
+		}
+		save_red (call);
+	}
+	
+	
+	public void dele_red (AsyncCallback<Void> call) {
+		reductions.put(current, RedState.DELETED);
+		store_reductions (call);
 	}
 	
 	
 	public void cancel () {
-		
+		current = null;
+		curr_state = null;
+	}
+	
+	
+	private void update_curr (Reduction r) {
+		current.setDescr(r.getDescr());
+		current.setVal(r.getVal());
+		current.setRed_type(r.getRed_type());
+		current.setPerc(r.isPerc());
 	}
 	
 }

@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import cc.co.enricosartori.hotelboss.dao.ExtraDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.PriceDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.ReductionDAOLocal;
+import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 
@@ -20,6 +22,9 @@ public class Configuration implements ConfigurationRemote {
 	PriceDAOLocal price_dao;
 	@EJB
 	ReductionDAOLocal red_dao;
+	@EJB
+	ExtraDAOLocal ext_dao;
+	
     /**
      * Default constructor. 
      */
@@ -65,6 +70,28 @@ public class Configuration implements ConfigurationRemote {
 			}
 			else if (tmp.getState().equals("DELETED")) {
 				red_dao.delete_red (tmp);
+			}
+		}
+	}
+
+
+	public List<Extra> get_extras() {
+		return ext_dao.get_extras ();
+	}
+
+
+	public void store_extras(List<Extra> el) {
+		Iterator<Extra> i = el.iterator();
+		while (i.hasNext()) {
+			Extra tmp = i.next();
+			if (tmp.getStatus().equals("NEW")) {
+				ext_dao.insert_extra(tmp);
+			}
+			else if (tmp.getStatus().equals("UPDATED")) {
+				ext_dao.update_extra(tmp);
+			}
+			else if (tmp.getStatus().equals("DELETED")) {
+				ext_dao.delete_extra(tmp);
 			}
 		}
 	}

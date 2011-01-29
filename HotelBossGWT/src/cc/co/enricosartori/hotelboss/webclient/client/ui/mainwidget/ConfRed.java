@@ -44,6 +44,8 @@ public class ConfRed extends Composite implements MainWidget{
 	
 	private final String[] RED_TYPES = new String[] {"Sconto", "Supplemento", "Tariffa"};
 	private final String[] RED_PERC = new String[] {"Percentuale", "Valore ass."};
+	private boolean running = false;
+	
 	
 	private AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 		public void onFailure (Throwable caught) {
@@ -81,9 +83,13 @@ public class ConfRed extends Composite implements MainWidget{
 		content.add (setup_fields_panel ());
 		content.add (setup_butt_panel ());
 		set_editable (false);
+		running = true;
 		initWidget(dock);
 	}
 	
+	public boolean is_running() {
+		return running;
+	}
 	
 	private VerticalPanel setup_fields_panel () {
 		VerticalPanel res = new VerticalPanel ();

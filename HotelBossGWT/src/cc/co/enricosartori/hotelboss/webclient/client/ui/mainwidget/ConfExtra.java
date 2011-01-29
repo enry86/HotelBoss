@@ -39,6 +39,7 @@ public class ConfExtra extends Composite implements MainWidget {
 			"Prezzo"}
 			);
 	
+	private boolean running = false;
 	private ExtraModel e_mod;
 	private ExtraController e_cont;
 	
@@ -72,7 +73,12 @@ public class ConfExtra extends Composite implements MainWidget {
 		content.add(setup_fields_pan ());
 		content.add(setup_butt_pan ());
 		set_editable(false);
+		running = true;
 		initWidget(dock);
+	}
+	
+	public boolean is_running() {
+		return running;
 	}
 	
 	public void set_table_callback (Listener l) {

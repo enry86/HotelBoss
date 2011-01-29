@@ -45,6 +45,7 @@ public class ConfPrices extends Composite implements MainWidget {
 			 "Pernottamento"}
 			);
 	
+	private boolean running = false;
 	private PriceController p_cont; 
 	private PriceModel p_mod;
 	
@@ -86,7 +87,12 @@ public class ConfPrices extends Composite implements MainWidget {
 		content.add(setup_fields_panel());
 		content.add(setup_butt_panel());
 		set_editable(false);
+		running = true;
 		initWidget(dock);
+	}
+	
+	public boolean is_running() {
+		return running;
 	}
 	
 	public void set_table_callback (Listener l) {

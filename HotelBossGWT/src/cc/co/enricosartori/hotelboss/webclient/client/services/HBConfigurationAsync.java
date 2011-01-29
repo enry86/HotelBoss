@@ -1,6 +1,8 @@
 package cc.co.enricosartori.hotelboss.webclient.client.services;
 
 import java.util.List;
+
+import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 
@@ -12,4 +14,7 @@ public interface HBConfigurationAsync {
 	
 	void get_reductions (AsyncCallback<List<Reduction>> callback);
 	void store_reductions (List<Reduction> list, AsyncCallback<Void> callback);
+	
+	void get_extras (AsyncCallback<List<Extra>> callback);
+	void store_extras (List<Extra> list, AsyncCallback<Void> callback);
 }

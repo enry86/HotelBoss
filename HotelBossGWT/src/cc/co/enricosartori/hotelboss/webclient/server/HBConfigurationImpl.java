@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cc.co.enricosartori.hotelboss.core.ConfigurationRemote;
+import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBConfiguration;
@@ -43,6 +44,14 @@ public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfi
 	
 	public void store_reductions (List<Reduction> list) {
 		hbConf.store_reductions(list);
+	}
+	
+	public List<Extra> get_extras () {
+		return hbConf.get_extras();
+	}
+	
+	public void store_extras (List<Extra> list) {
+		hbConf.store_extras(list);
 	}
 
 }

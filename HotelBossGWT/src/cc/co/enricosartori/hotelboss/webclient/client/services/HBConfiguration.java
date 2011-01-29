@@ -2,6 +2,7 @@ package cc.co.enricosartori.hotelboss.webclient.client.services;
 
 import java.util.List;
 
+import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 
@@ -15,4 +16,7 @@ public interface HBConfiguration extends RemoteService{
 	
 	public List<Reduction> get_reductions ();
 	public void store_reductions (List<Reduction> list);
+	
+	public List<Extra> get_extras ();
+	public void store_extras (List<Extra> list);
 }

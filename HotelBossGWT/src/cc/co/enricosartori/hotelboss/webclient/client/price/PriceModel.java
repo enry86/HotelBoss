@@ -101,7 +101,6 @@ public class PriceModel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				GWT.log("SERVER ERROR");
 				call.onFailure(caught);
 			}
 

@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui;
 
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfExtra;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu;
@@ -46,9 +47,9 @@ public class Navigation extends ResizeComposite {
 		Entry[] c = {
 				new Entry("Prezzi", new ConfPrices()),
 				new Entry("Sconti", new ConfRed()),
-				new Entry("Camere", null),
-				new Entry("Extra", null),
-				new Entry("Cambi biancheria", null)
+				//new Entry("Camere", null),
+				new Entry("Extra", new ConfExtra()),
+				//new Entry("Cambi biancheria", null)
 		};
 		
 		Entry[] e = {

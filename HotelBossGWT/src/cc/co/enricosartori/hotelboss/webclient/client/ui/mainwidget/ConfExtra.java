@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import cc.co.enricosartori.hotelboss.dto.Extra;
-import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.webclient.client.extra.ExtraController;
 import cc.co.enricosartori.hotelboss.webclient.client.extra.ExtraModel;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable;

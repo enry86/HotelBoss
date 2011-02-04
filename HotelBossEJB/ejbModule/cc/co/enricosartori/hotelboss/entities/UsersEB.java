@@ -1,6 +1,7 @@
 package cc.co.enricosartori.hotelboss.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class UsersEB {
 	public static final String USERS_LIST = "Users_list";
 	
+	@Id
 	private String username;
 	private String passwd;
 	private String role;

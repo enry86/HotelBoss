@@ -5,14 +5,13 @@ use `hotelboss`;
 
 
 create table if not exists `users` (
-`PrincipalID` text not null,
+`PrincipalID` varchar(50) not null,
 `Password` text not null,
-`Role` text not null,
+`Role` varchar(30) not null,
 `name` varchar(30) not null,
 `surname` varchar(30) not null,
 `email` varchar(100) not null,
 primary key (`PrincipalID`));
-);
 
 
 

@@ -4,7 +4,7 @@ create schema if not exists `hotelboss`;
 use `hotelboss`;
 
 
-create table if not exists `Users` (
+create table if not exists `users` (
 `PrincipalID` text not null,
 `Password` text not null,
 `Role` text not null,

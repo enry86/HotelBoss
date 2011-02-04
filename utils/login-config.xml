@@ -69,8 +69,8 @@ $Revision: 87078 $
     <login-module code = "org.jboss.security.auth.spi.DatabaseServerLoginModule" flag = "required">
        <module-option name = "unauthenticatedIdentity">guest</module-option>
        <module-option name = "dsJndiName">java:/MySqlHB</module-option>
-       <module-option name = "principalsQuery">SELECT Password FROM Principals WHERE PrincipalID=?</module-option>
-       <module-option name = "rolesQuery">SELECT Role, 'Roles' FROM Roles WHERE PrincipalID=?</module-option>
+       <module-option name = "principalsQuery">SELECT passwd FROM users WHERE username=?</module-option>
+       <module-option name = "rolesQuery">SELECT role, 'Roles' FROM users WHERE username=?</module-option>
        <!--<module-option name = "hashAlgorithm">MD5</module-option> -->
     </login-module>
   </authentication>

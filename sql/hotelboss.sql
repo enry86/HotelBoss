@@ -4,20 +4,16 @@ create schema if not exists `hotelboss`;
 use `hotelboss`;
 
 
-create table if not exists `Principals` (
+create table if not exists `Users` (
 `PrincipalID` text not null,
-`Password` text not null);
-
-
-create table if not exists `Roles` (
-`PrincipalID` text not null,
-`Role` text not null);
-
-create table if not exists `users` (
-`PrincipalID` varchar(20) not null,
+`Password` text not null,
+`Role` text not null,
 `name` varchar(30) not null,
 `surname` varchar(30) not null,
+`email` varchar(100) not null,
 primary key (`PrincipalID`));
+);
+
 
 
 create table if not exists `Price` (

@@ -26,6 +26,7 @@
 
   <property name="ejb.cli.jar" location="war/WEB-INF/lib/hotelboss_ejb_cli.jar" />
   <property name="ejb.mod" location="../HotelBossEJB" />
+
   <path id="project.class.path">
   	<pathelement location="${basedir}"/>
     <pathelement location="war/WEB-INF/classes"/>

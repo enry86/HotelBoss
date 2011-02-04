@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
+import cc.co.enricosartori.hotelboss.dto.User;
 
 @Remote
 public interface ConfigurationRemote {
@@ -18,5 +19,9 @@ public interface ConfigurationRemote {
 	
 	public List<Extra> get_extras ();
 	public void store_extras (List<Extra> el);
+	
+	public List<User> get_users ();
+	public boolean check_username (String user);
+	public boolean store_user (User user);
 	
 }

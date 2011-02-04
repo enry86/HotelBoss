@@ -9,9 +9,11 @@ import javax.ejb.Stateless;
 import cc.co.enricosartori.hotelboss.dao.ExtraDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.PriceDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.ReductionDAOLocal;
+import cc.co.enricosartori.hotelboss.dao.UserDAOLocal;
 import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
+import cc.co.enricosartori.hotelboss.dto.User;
 
 /**
  * Session Bean implementation class Configuration
@@ -24,6 +26,8 @@ public class Configuration implements ConfigurationRemote {
 	ReductionDAOLocal red_dao;
 	@EJB
 	ExtraDAOLocal ext_dao;
+	@EJB
+	UserDAOLocal user_dao;
 	
     /**
      * Default constructor. 
@@ -95,8 +99,32 @@ public class Configuration implements ConfigurationRemote {
 			}
 		}
 	}
+
 	
+	public boolean check_username(String user) {
+		return user_dao.check_user(user);
+	}
+
 	
+	public List<User> get_users() {
+		return user_dao.get_users();
+	}
+
 	
-	
+	public boolean store_user(User user) {
+		boolean res = true;
+		if (user.getStatus().equals("NEW")) {
+			if (user_dao.check_user(user.getUsername())) {
+				user_dao.insert_user(user);
+			}
+			else res = false;
+		}
+		else if (user.getStatus().equals("UPDATED")) {
+			user_dao.update_user(user);
+		}
+		else if (user.getStatus().equals("DELETED")) {
+			user_dao.delete_user(user);
+		}
+		return res;
+	}
 }

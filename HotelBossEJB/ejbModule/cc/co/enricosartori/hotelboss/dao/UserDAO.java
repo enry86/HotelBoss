@@ -46,7 +46,7 @@ public class UserDAO implements UserDAOLocal {
 	
 	public boolean check_user (String id) {
 		UsersEB u = ent_man.find(UsersEB.class, id);
-		return u.equals(null);
+		return u == null;
 	}
 	
 	

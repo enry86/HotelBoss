@@ -5,6 +5,7 @@ import java.util.List;
 import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
+import cc.co.enricosartori.hotelboss.dto.User;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -19,4 +20,7 @@ public interface HBConfiguration extends RemoteService{
 	
 	public List<Extra> get_extras ();
 	public void store_extras (List<Extra> list);
+	
+	public List<User> get_users ();
+	public Boolean store_user (User list);
 }

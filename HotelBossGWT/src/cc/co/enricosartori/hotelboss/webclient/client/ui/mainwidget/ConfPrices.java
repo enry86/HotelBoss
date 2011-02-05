@@ -59,7 +59,7 @@ public class ConfPrices extends Composite implements MainWidget {
 	
 	private AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 			public void onFailure (Throwable caught) {
-				//price_l.setText("Server error...");
+				show_error("Server error...");
 			}
 			public void onSuccess (Void v) {
 				Iterator<Price> i = p_mod.get_iterator();

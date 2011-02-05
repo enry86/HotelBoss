@@ -12,6 +12,7 @@ import cc.co.enricosartori.hotelboss.core.ConfigurationRemote;
 import cc.co.enricosartori.hotelboss.dto.Extra;
 import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
+import cc.co.enricosartori.hotelboss.dto.User;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBConfiguration;
 
 public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfiguration {
@@ -53,5 +54,13 @@ public class HBConfigurationImpl extends RemoteServiceServlet implements HBConfi
 	public void store_extras (List<Extra> list) {
 		hbConf.store_extras(list);
 	}
-
+	
+	public List<User> get_users () {
+		return hbConf.get_users();
+	}
+	
+	public Boolean store_user (User u) {
+		return hbConf.store_user(u);
+	}
+	
 }

@@ -3,6 +3,7 @@ package cc.co.enricosartori.hotelboss.webclient.client.ui;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfExtra;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfUser;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu.Entry;
 import com.google.gwt.core.client.GWT;
@@ -47,9 +48,8 @@ public class Navigation extends ResizeComposite {
 		Entry[] c = {
 				new Entry("Prezzi", new ConfPrices()),
 				new Entry("Sconti", new ConfRed()),
-				//new Entry("Camere", null),
 				new Entry("Extra", new ConfExtra()),
-				//new Entry("Cambi biancheria", null)
+				new Entry("Utenti", new ConfUser())
 		};
 		
 		Entry[] e = {

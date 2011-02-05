@@ -114,10 +114,15 @@ public class Configuration implements ConfigurationRemote {
 	public boolean store_user(User user) {
 		boolean res = true;
 		if (user.getStatus().equals("NEW")) {
+			System.out.println("Checking Username");
 			if (user_dao.check_user(user.getUsername())) {
+				System.out.println("Username OK, inserting...");
 				user_dao.insert_user(user);
 			}
-			else res = false;
+			else {
+				System.out.println("Username KO");
+				res = false;
+			}
 		}
 		else if (user.getStatus().equals("UPDATED")) {
 			user_dao.update_user(user);

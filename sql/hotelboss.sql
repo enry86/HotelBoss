@@ -47,10 +47,12 @@ create table if not exists `reductions` (
 `perc` boolean not null,
 primary key (`id`));
 
-create table if not exists `reservartion` (
+create table if not exists `reservation` (
 `id` integer not null auto_increment,
 `date_arr` date not null, 
 `date_dep` date not null,
+`room` varchar(10) not null, 
+`customer` varchar(100) not null,
 `note` text,
 primary key (`id`));
 

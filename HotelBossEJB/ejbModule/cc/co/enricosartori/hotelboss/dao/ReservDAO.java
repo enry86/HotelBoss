@@ -20,8 +20,8 @@ public class ReservDAO implements ReservDAOLocal {
 	@Override
 	public boolean check_res(Reservation res) {
 		Query q = ent_man.createNamedQuery(ReservEB.RESERV_CHECK);
-		q.setParameter(":room", res.getRoom());
-		q.setParameter(":date_arr", res.getDate_arr());
+		q.setParameter("room", res.getRoom());
+		q.setParameter("date_arr", res.getDate_arr());
 		List<ReservEB> l = q.getResultList();
 		return l.size() == 0;
 	}
@@ -49,12 +49,13 @@ public class ReservDAO implements ReservDAOLocal {
 
 	@Override
 	public void update_res(Reservation res) {
-		ReservEB eb = ent_man.find(ReservEB.class, res.getId());
-		ent_man.persist(eb);
+		ReservEB eb = get_EB(res);
+		ent_man.merge(eb);
 	}
 	
 	private ReservEB get_EB (Reservation dto) {
 		ReservEB eb = new ReservEB ();
+		eb.setId(dto.getId());
 		eb.setDate_arr(dto.getDate_arr ());
 		eb.setDate_dep(dto.getDate_dep ());
 		eb.setRoom(dto.getRoom());

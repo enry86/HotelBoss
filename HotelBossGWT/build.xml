@@ -19,7 +19,7 @@
   <property name="webapp.main" value="cc.co.enricosartori.hotelboss.webclient.HotelBossGWT" />
   
   <!-- Remote server configuration -->
-  <property name="srv.host" value="192.168.0.6" />
+  <property name="srv.host" value="192.168.1.6" />
   <property name="srv.root" location="/home/enry/srv/jboss/server/default/deploy" />
   <property name="srv.user" value="enry" />
   <property name="srv.tmp" location="/home/enry/hotelbossgwt_tmp" />

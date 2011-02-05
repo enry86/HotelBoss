@@ -6,7 +6,7 @@
 	<property name="ejb.path" value="../HotelBossEJB/build" />
 	<property name="cont.dir" location="${basedir}/EarContent" />
 	<property name="loc.deploy" location="/home/enry/srv/jboss/server/default/deploy" />
-	<property name="srv.host" value="192.168.0.6" />
+	<property name="srv.host" value="192.168.1.6" />
 	<property name="srv.root" location="/home/enry/srv/jboss/server/default/deploy" />
 	<property name="srv.user" value="enry" />
 	<property name="srv.tmp" location="/home/enry/tmp" />

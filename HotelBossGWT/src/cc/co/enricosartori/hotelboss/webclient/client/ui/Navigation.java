@@ -4,6 +4,7 @@ import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfExtra;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfUser;
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.RecReser;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu.Entry;
 import com.google.gwt.core.client.GWT;
@@ -40,9 +41,7 @@ public class Navigation extends ResizeComposite {
 		};
 		
 		Entry[] p = {
-				new Entry("Nuova Prenotazione", null),
-				new Entry("Modifica Prenotazioni", null),
-				new Entry("Planner", null)
+				new Entry("Gestione Prenotazioni", new RecReser())
 		};
 		
 		Entry[] c = {

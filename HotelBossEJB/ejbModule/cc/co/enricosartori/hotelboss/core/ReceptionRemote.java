@@ -1,6 +1,6 @@
 package cc.co.enricosartori.hotelboss.core;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Remote;

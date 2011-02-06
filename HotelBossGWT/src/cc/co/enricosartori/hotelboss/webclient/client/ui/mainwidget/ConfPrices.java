@@ -2,7 +2,7 @@ package cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget;
 
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -112,8 +112,8 @@ public class ConfPrices extends Composite implements MainWidget {
 	
 	public Price get_price () {
 		Price res = new Price();
-		res.setStart_d(dp_in.getValue());
-		res.setEnd_d(dp_out.getValue());
+		res.setStart_d(new Date (dp_in.getValue().getTime()));
+		res.setEnd_d(new Date (dp_out.getValue().getTime()));
 		try {
 			res.setFb(get_float(fb_tb.getText()));
 			res.setHb(get_float(hb_tb.getText()));
@@ -155,8 +155,8 @@ public class ConfPrices extends Composite implements MainWidget {
 	}
 	
 	public void reset_fields () {
-		dp_in.setValue(new Date());
-		dp_out.setValue(new Date());
+		dp_in.setValue(new java.util.Date());
+		dp_out.setValue(new java.util.Date());
 		fb_tb.setText("");
 		hb_tb.setText("");
 		bb_tb.setText("");
@@ -171,7 +171,7 @@ public class ConfPrices extends Composite implements MainWidget {
 	private VerticalPanel setup_dp_panel (DatePicker dp, String title) {
 		VerticalPanel res = new VerticalPanel();
 		Label l_tit = new Label(title);
-		dp.setValue(new Date());
+		dp.setValue(new java.util.Date());
 		dp.setTitle(title);
 		res.add(l_tit);
 		res.add(dp);

@@ -1,7 +1,7 @@
 package cc.co.enricosartori.hotelboss.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class Reservation implements Serializable {
 

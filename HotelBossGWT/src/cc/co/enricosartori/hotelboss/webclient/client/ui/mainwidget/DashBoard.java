@@ -1,6 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -66,9 +66,9 @@ public class DashBoard extends Composite implements MainWidget {
 	
 	private void setup_gui () {
 		date = new DatePicker();
-		date.setValue(new Date());
-		date.addValueChangeHandler(new ValueChangeHandler<Date> () {
-			public void onValueChange(ValueChangeEvent<Date> event) {
+		date.setValue(new java.util.Date());
+		date.addValueChangeHandler(new ValueChangeHandler<java.util.Date> () {
+			public void onValueChange(ValueChangeEvent<java.util.Date> event) {
 				cont.update_lists ();
 			}
 		});
@@ -80,7 +80,8 @@ public class DashBoard extends Composite implements MainWidget {
 	}
 	
 	public Date get_date () {
-		return date.getValue();
+		java.util.Date d = date.getValue();
+		return new Date(d.getTime());
 	}
 	
 	public void show_arr (List<Reservation> l) {
@@ -119,15 +120,17 @@ public class DashBoard extends Composite implements MainWidget {
 	
 	private void fill_list (List<Reservation> l, DisclosurePanel p, String void_mex) {
 		Iterator<Reservation> i = l.iterator();
+		VerticalPanel vp = new VerticalPanel ();
 		while (i.hasNext()) {
 			Reservation tmp = i.next();
 			Label lab = new Label(tmp.getRoom() + " - " + tmp.getCustomer());
-			p.add(lab);
+			vp.add(lab);
 		}
 		if (l.size() == 0) {
 			Label lab = new Label(void_mex);
-			p.add(lab);
+			vp.add(lab);
 		}
+		p.add(vp);
 	}
 	
 	private void reset_panel (DisclosurePanel p) {

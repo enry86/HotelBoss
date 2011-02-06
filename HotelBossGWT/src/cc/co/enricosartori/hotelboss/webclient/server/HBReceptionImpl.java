@@ -1,6 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.server;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.naming.Context;

@@ -1,6 +1,6 @@
 package cc.co.enricosartori.hotelboss.dao;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import cc.co.enricosartori.hotelboss.dto.Reservation;

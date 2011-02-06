@@ -94,7 +94,7 @@
       <jvmarg value="-Xmx512M"/>
       <arg value="-startupUrl"/>
       <!--<arg value="${proj.name}.html"/> -->
-      <arg value="http://192.168.0.6:8080/hotelbossgwt/"/>
+      <arg value="http://192.168.1.6:8080/hotelbossgwt/"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
       <arg line="${gwt.args} -noserver"/>
       <arg value="${webapp.main}"/>

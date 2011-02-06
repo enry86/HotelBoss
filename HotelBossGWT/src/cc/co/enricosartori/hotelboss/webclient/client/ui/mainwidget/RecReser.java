@@ -1,7 +1,7 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -112,8 +112,8 @@ public class RecReser extends Composite implements MainWidget {
 	
 	public Reservation get_reservation () {
 		Reservation r = new Reservation();
-		r.setDate_arr(arr_dp.getValue());
-		r.setDate_dep(dep_dp.getValue());
+		r.setDate_arr (new Date (arr_dp.getValue().getTime()));
+		r.setDate_dep (new Date (dep_dp.getValue().getTime()));
 		r.setRoom(room_tb.getValue());
 		r.setCustomer(cust_tb.getValue());
 		r.setNote(note_ta.getValue());
@@ -148,8 +148,8 @@ public class RecReser extends Composite implements MainWidget {
 	}
 	
 	public void reset_fields () {
-		arr_dp.setValue(new Date());
-		dep_dp.setValue(new Date());
+		arr_dp.setValue(new java.util.Date());
+		dep_dp.setValue(new java.util.Date());
 		room_tb.setValue("");
 		cust_tb.setValue("");
 		note_ta.setValue("");
@@ -157,7 +157,7 @@ public class RecReser extends Composite implements MainWidget {
 	
 	private VerticalPanel setup_dp_panel (DatePicker dp, String title) {
 		VerticalPanel res = new VerticalPanel ();
-		dp.setValue(new Date());
+		dp.setValue(new java.util.Date());
 		res.add(new Label(title));
 		res.add(dp);
 		return res;

@@ -17,6 +17,7 @@ public class PriceModel {
 	private final HBConfigurationAsync hbconf = GWT.create(HBConfiguration.class);
 	private enum PriceState {NEW, UPDATED, DELETED, STORED};
 	private HashMap<Price, PriceState> pricelist = new HashMap<Price, PriceState>();
+	private ArrayList<Price> keys = new ArrayList<Price> ();
 	private Price current;
 	private PriceState curr_state;
 	
@@ -35,6 +36,9 @@ public class PriceModel {
 		update_curr(p);
 		if (curr_state != PriceState.NEW) {
 			curr_state = PriceState.UPDATED;
+		}
+		else {
+			keys.add(current);
 		}
 		save_price(call);
 	}
@@ -81,8 +85,7 @@ public class PriceModel {
 	}
 	
 	public Iterator<Price> get_iterator () {
-		Set<Price> s = pricelist.keySet();
-		Iterator<Price> i = s.iterator();
+		Iterator<Price> i = keys.iterator();
 		return i;
 	}
 	
@@ -92,6 +95,7 @@ public class PriceModel {
 			while (i.hasNext()) {
 				Price tmp = (Price) i.next();
 				pricelist.put(tmp, PriceState.STORED);
+				keys.add(tmp);
 			}
 		}
 	}
@@ -122,6 +126,7 @@ public class PriceModel {
 
 					public void onSuccess(List<Price> result) {
 						pricelist.clear();
+						keys.clear();
 						read_pricelist(result);
 						callback.onSuccess(null);
 					}

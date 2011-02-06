@@ -28,7 +28,7 @@
 		<copy file="${ejb.path}/${ejb.jar}" todir="${cont.dir}" />
 	</target>
 	
-	<target name="remote-deploy" description="Deploy webapp in remote server">
+	<target name="remote-deploy" depends="ear" description="Deploy webapp in remote server">
 		<input
 			message="Insert remote server password:"
 	  		addproperty="srv.pass"

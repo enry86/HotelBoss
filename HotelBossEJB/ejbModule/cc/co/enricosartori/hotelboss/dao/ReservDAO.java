@@ -1,6 +1,7 @@
 package cc.co.enricosartori.hotelboss.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,6 +54,24 @@ public class ReservDAO implements ReservDAOLocal {
 		ent_man.merge(eb);
 	}
 	
+	public List<Reservation> get_arrivals (Date d) {
+		Query q = ent_man.createNamedQuery(ReservEB.RESERV_DATEARR);
+		q.setParameter("date_arr", d);
+		List<ReservEB> res = q.getResultList();
+		System.out.println("Arrivi: " + res.size());
+		System.out.println("Data arrivo: " + d);
+		return convert_list (res);
+	}
+	
+	public List<Reservation> get_departures (Date d) {
+		Query q = ent_man.createNamedQuery(ReservEB.RESERV_DATEDEP);
+		q.setParameter("date_dep", d);
+		List<ReservEB> res = q.getResultList();
+		System.out.println("Partenze: " + res.size());
+		return convert_list (res);
+	}
+	
+	
 	private ReservEB get_EB (Reservation dto) {
 		ReservEB eb = new ReservEB ();
 		eb.setId(dto.getId());
@@ -81,7 +100,9 @@ public class ReservDAO implements ReservDAOLocal {
 		Iterator<ReservEB> i = l.iterator ();
 		ArrayList<Reservation> res = new ArrayList<Reservation> (l.size());
 		while (i.hasNext()) {
-			res.add(get_DTO(i.next()));
+			ReservEB eb = i.next();
+			res.add(get_DTO(eb));
+			System.out.println("Data entity: " + eb.getDate_arr());
 		}
 		return res;
 	}

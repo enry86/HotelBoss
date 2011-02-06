@@ -4,6 +4,11 @@
   xmlns:hboss.nav='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.nav'>
 
   <g:StackLayoutPanel unit='EM'>
+  	<g:stack>
+      <g:header size='3'>Home</g:header>
+      <hboss.nav:Menu ui:field='home'/>
+    </g:stack>
+  
     <g:stack>
       <g:header size='3'>Reception</g:header>
       <hboss.nav:Menu ui:field='recep'/>
@@ -17,11 +22,6 @@
     <g:stack>
       <g:header size='3'>Extra</g:header>
       <hboss.nav:Menu ui:field='extra'/>
-    </g:stack>
-    
-    <g:stack>
-      <g:header size='3'>Biancheria</g:header>
-      <hboss.nav:Menu ui:field='bianc' />
     </g:stack>
 
     <g:stack>

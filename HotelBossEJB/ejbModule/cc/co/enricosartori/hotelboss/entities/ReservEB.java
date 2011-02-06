@@ -17,7 +17,11 @@ import javax.persistence.Table;
 @NamedQuery(name="Reserv_datearr_room",
 		query="select r from ReservEB r order by r.date_arr, r.room"),
 @NamedQuery(name="Reserv_check",
-		query="select r from ReservEB r where r.room = :room and r.date_arr <= :date_arr and r.date_dep > :date_arr")
+		query="select r from ReservEB r where r.room = :room and r.date_arr <= :date_arr and r.date_dep > :date_arr"),
+@NamedQuery(name="Reserv_datearr",
+		query="select r from ReservEB r where r.date_arr = :date_arr"),
+@NamedQuery(name="Reserv_datedep",
+		query="select r from ReservEB r where r.date_dep = :date_dep")
 })
 public class ReservEB {
 	@Id
@@ -31,6 +35,8 @@ public class ReservEB {
 	
 	public static final String RESERV_ORD_DATE_ROOM = "Reserv_datearr_room";
 	public static final String RESERV_CHECK = "Reserv_check";
+	public static final String RESERV_DATEARR = "Reserv_datearr";
+	public static final String RESERV_DATEDEP = "Reserv_datedep";
 	
 	public int getId() {
 		return id;

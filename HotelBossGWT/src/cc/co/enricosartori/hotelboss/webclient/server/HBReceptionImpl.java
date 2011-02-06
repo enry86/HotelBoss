@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.server;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -38,5 +39,12 @@ public class HBReceptionImpl extends RemoteServiceServlet implements HBReception
 	public Boolean store_reservation(Reservation res) {
 		return hbRecept.store_reservation(res);
 	}
-
+	
+	public List<Reservation> get_arrivals (Date d) {
+		return hbRecept.get_arrivals(d);
+	}
+	
+	public List<Reservation> get_departures (Date d) {
+		return hbRecept.get_departures(d);
+	}
 }

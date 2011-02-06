@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.User;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable.Listener;
@@ -24,6 +23,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -61,8 +61,9 @@ public class ConfUser extends Composite implements MainWidget {
 		}
 	};
 	
-	private TextBox user_tb, pass_tb, role_tb, name_tb, surn_tb, email_tb;
+	private TextBox user_tb, role_tb, name_tb, surn_tb, email_tb;
 	private Button new_butt, save_butt, canc_butt, dele_butt;
+	private PasswordTextBox pass_tb;
 	
 	
 	public ConfUser () {}
@@ -150,7 +151,7 @@ public class ConfUser extends Composite implements MainWidget {
 	private VerticalPanel setup_fields_panel () {
 		VerticalPanel res = new VerticalPanel ();
 		user_tb = new TextBox();
-		pass_tb = new TextBox();
+		pass_tb = new PasswordTextBox();
 		role_tb = new TextBox();
 		name_tb = new TextBox();
 		surn_tb = new TextBox();

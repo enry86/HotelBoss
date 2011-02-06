@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.core;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,6 +16,14 @@ public class Reception implements ReceptionRemote {
 	
 	public List<Reservation> get_reservations () {
 		return res_dao.get_reservations();
+	}
+	
+	public List<Reservation> get_arrivals (Date d) {
+		return res_dao.get_arrivals(d);
+	}
+	
+	public List<Reservation> get_departures (Date d) {
+		return res_dao.get_departures(d);
 	}
 	
 	public boolean store_reservation (Reservation r) {

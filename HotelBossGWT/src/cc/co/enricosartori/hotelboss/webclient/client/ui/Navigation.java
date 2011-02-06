@@ -4,6 +4,7 @@ import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfExtra;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfUser;
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.DashBoard;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.RecReser;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu.Entry;
@@ -17,14 +18,14 @@ public class Navigation extends ResizeComposite {
 	interface Binder extends UiBinder<StackLayoutPanel, Navigation> { }
 	public static final Binder binder = GWT.create(Binder.class);
 	
+	@UiField(provided=true)
+	final Menu home;
 	@UiField(provided=true) 
 	final Menu recep;
 	@UiField(provided=true) 
 	final Menu extra;
 	@UiField(provided=true) 
 	final Menu pren;
-	@UiField(provided=true)
-	final Menu bianc;
 	@UiField(provided=true) 
 	final Menu conf;
 	
@@ -36,8 +37,8 @@ public class Navigation extends ResizeComposite {
 				new Entry("ISTAT", null)	
 		};
 		
-		Entry[] b = {
-				new Entry("Cambi del giorno", null)		
+		Entry[] h = {
+				new Entry("DashBoard", DashBoard.get_instance())		
 		};
 		
 		Entry[] p = {
@@ -55,7 +56,7 @@ public class Navigation extends ResizeComposite {
 				new Entry("Modifica extra", null)
 		};
 		
-		bianc = new Menu(b, cont);
+		home = new Menu(h, cont);
 		recep = new Menu(r, cont);
 		pren = new Menu(p, cont);
 		conf = new Menu(c, cont);

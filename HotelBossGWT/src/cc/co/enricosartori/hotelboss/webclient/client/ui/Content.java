@@ -12,7 +12,7 @@ public class Content extends Composite {
 	private DeckPanel main;
 	
 	public Content () {
-		current = new DashBoard();
+		current = DashBoard.get_instance();
 		main = new DeckPanel();
 		main.add(current);
 		int index = main.getWidgetIndex(current);

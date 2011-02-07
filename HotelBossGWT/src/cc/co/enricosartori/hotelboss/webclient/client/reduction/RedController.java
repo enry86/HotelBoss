@@ -3,7 +3,6 @@ package cc.co.enricosartori.hotelboss.webclient.client.reduction;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.GenericTable.Listener;

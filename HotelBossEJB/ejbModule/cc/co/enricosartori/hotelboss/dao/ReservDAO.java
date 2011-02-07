@@ -17,7 +17,7 @@ import cc.co.enricosartori.hotelboss.entities.ReservEB;
 public class ReservDAO implements ReservDAOLocal {
 	@PersistenceContext
 	private EntityManager ent_man;
-	
+		
 	@Override
 	public boolean check_res(Reservation res) {
 		Query q = ent_man.createNamedQuery(ReservEB.RESERV_CHECK);

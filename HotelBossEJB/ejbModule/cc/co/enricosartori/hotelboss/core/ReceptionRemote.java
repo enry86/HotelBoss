@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import cc.co.enricosartori.hotelboss.dto.Reservation;
+import cc.co.enricosartori.hotelboss.dto.Customer;
+import cc.co.enricosartori.hotelboss.dto.Reservation;;
 
 @Remote
 public interface ReceptionRemote {
@@ -13,4 +14,7 @@ public interface ReceptionRemote {
 	public List<Reservation> get_arrivals (Date d);
 	public List<Reservation> get_departures (Date d);
 	public boolean store_reservation (Reservation r);
+	
+	public List<Customer> get_customers ();
+	public boolean store_customer (Customer c);
 }

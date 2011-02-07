@@ -47,6 +47,7 @@ create table if not exists `reductions` (
 `perc` boolean not null,
 primary key (`id`));
 
+
 create table if not exists `reservation` (
 `id` integer not null auto_increment,
 `date_arr` date not null, 
@@ -57,6 +58,16 @@ create table if not exists `reservation` (
 primary key (`id`));
 
 
+create table if not exists `customer` (
+`room` integer not null auto_increment,
+`date_arr` date not null,
+`name` varchar(100) not null, 
+`people` integer not null,
+`treatment` integer not null,
+`discount` integer,
+primary key (`room`));
+
+insert into users values ('admin', 'admin', 'admin','Administrator','Administrator','admin@hotelboss.it');
 
 
 

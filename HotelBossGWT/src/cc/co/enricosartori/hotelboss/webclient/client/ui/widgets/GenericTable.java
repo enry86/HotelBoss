@@ -45,7 +45,7 @@ public class GenericTable extends Composite {
 		row = 0;
 	}
 	
-	public int add_row (ArrayList e) {
+	public int add_row (ArrayList<String> e) {
 		for (int i = 0; i < cols; i++) {
 			table.setText(row, i, (String) e.get(i));
 		}

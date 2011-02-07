@@ -48,6 +48,8 @@ public class Reception implements ReceptionRemote {
 		}
 		return res;
 	}
+	
+	
 
 	@Override
 	public List<Customer> get_customers() {
@@ -71,6 +73,6 @@ public class Reception implements ReceptionRemote {
 		else if (c.getStatus().equals("DELETED")) {
 			cus_dao.delete_cust(c);
 		}
-		return true;
+		return res;
 	}
 }

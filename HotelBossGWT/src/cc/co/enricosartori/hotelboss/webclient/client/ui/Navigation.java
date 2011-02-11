@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui;
 
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.Arrivals;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfExtra;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
@@ -32,7 +33,7 @@ public class Navigation extends ResizeComposite {
 	
 	public Navigation(Content cont) {
 		Entry[] r = {
-				new Entry("Arrivi", null),
+				new Entry("Arrivi", new Arrivals()),
 				new Entry("Partenze", null),
 				new Entry("ISTAT", null)	
 		};

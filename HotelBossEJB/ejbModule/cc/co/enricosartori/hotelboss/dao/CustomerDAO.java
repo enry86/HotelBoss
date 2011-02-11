@@ -20,7 +20,7 @@ public class CustomerDAO implements CustomerDAOLocal {
 	@Override
 	public boolean check_cust(Customer c) {
 		CustomerEB eb = ent_man.find(CustomerEB.class, c.getRoom());
-		return !(eb == null);
+		return eb == null;
 	}
 
 	@Override

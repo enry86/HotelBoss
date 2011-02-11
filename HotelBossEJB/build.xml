@@ -79,7 +79,7 @@
       />	
    </target>
    	
-   <target name="ejbjar" depends="compile">
+   <target name="ejbjar" depends="clean, compile">
       <jar jarfile="build/${build.artifact}">
          <fileset dir="${build.classes.dir}">
             <include name="**/*.class"/>

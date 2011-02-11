@@ -7,6 +7,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import cc.co.enricosartori.hotelboss.core.ReceptionRemote;
+import cc.co.enricosartori.hotelboss.dto.Customer;
 import cc.co.enricosartori.hotelboss.dto.Reservation;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBReception;
 
@@ -46,5 +47,14 @@ public class HBReceptionImpl extends RemoteServiceServlet implements HBReception
 	
 	public List<Reservation> get_departures (Date d) {
 		return hbRecept.get_departures(d);
+	}
+	
+	public List<Customer> get_customers () {
+		return hbRecept.get_customers();
+	}
+	
+	public Boolean store_customer (Customer c) {
+		System.out.println("Fucking servlet called");
+		return hbRecept.store_customer (c);
 	}
 }

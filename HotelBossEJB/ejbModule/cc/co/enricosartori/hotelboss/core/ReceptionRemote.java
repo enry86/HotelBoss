@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import cc.co.enricosartori.hotelboss.dto.Customer;
+import cc.co.enricosartori.hotelboss.dto.Purchase;
 import cc.co.enricosartori.hotelboss.dto.Reservation;;
 
 @Remote
@@ -17,4 +18,7 @@ public interface ReceptionRemote {
 	
 	public List<Customer> get_customers ();
 	public boolean store_customer (Customer c);
+	
+	public List<Purchase> get_pur_room (int room);
+	public boolean store_purchase (Purchase p);
 }

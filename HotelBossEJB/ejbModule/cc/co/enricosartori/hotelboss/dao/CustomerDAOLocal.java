@@ -10,4 +10,5 @@ public interface CustomerDAOLocal {
 	public void update_cust (Customer c);
 	public void delete_cust (Customer c);
 	public boolean check_cust (Customer c);
+	public boolean check_room (int room);
 }

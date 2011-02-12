@@ -7,8 +7,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import cc.co.enricosartori.hotelboss.dao.CustomerDAOLocal;
+import cc.co.enricosartori.hotelboss.dao.PurchaseDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.ReservDAOLocal;
 import cc.co.enricosartori.hotelboss.dto.Customer;
+import cc.co.enricosartori.hotelboss.dto.Purchase;
 import cc.co.enricosartori.hotelboss.dto.Reservation;
 
 @Stateless
@@ -17,6 +19,9 @@ public class Reception implements ReceptionRemote {
 	private ReservDAOLocal res_dao;
 	@EJB
 	private CustomerDAOLocal cus_dao;
+	@EJB
+	private PurchaseDAOLocal pur_dao;
+	
 	
 	public List<Reservation> get_reservations () {
 		return res_dao.get_reservations();
@@ -72,6 +77,28 @@ public class Reception implements ReceptionRemote {
 		}
 		else if (c.getStatus().equals("DELETED")) {
 			cus_dao.delete_cust(c);
+		}
+		return res;
+	}
+
+	@Override
+	public List<Purchase> get_pur_room(int room) {
+		return pur_dao.get_purs(room);
+	}
+
+	@Override
+	public boolean store_purchase(Purchase p) {
+		boolean res = true;
+		if (p.getStatus().equals("NEW")) {
+			if (cus_dao.check_room(p.getRoom())) {
+				pur_dao.insert_pur(p);
+			}
+			else {
+				res = false;
+			}
+		}
+		else if (p.getStatus().equals("DELETED")) {
+			pur_dao.delete_pur(p);
 		}
 		return res;
 	}

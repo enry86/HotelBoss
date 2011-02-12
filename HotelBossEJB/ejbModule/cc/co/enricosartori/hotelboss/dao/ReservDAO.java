@@ -58,8 +58,6 @@ public class ReservDAO implements ReservDAOLocal {
 		Query q = ent_man.createNamedQuery(ReservEB.RESERV_DATEARR);
 		q.setParameter("date_arr", d);
 		List<ReservEB> res = q.getResultList();
-		System.out.println("Arrivi: " + res.size());
-		System.out.println("Data arrivo: " + d);
 		return convert_list (res);
 	}
 	

@@ -25,10 +25,10 @@ create table if not exists `Price` (
 primary key(`price_id`));
 
 
-create table if not exists `rooms` (
-`id` integer not null, 
-`capacity` integer not null,
-`note` text,
+create table if not exists `purchase` (
+`id` integer not null auto_increment,
+`room` integer not null,
+`date` date not null,
 primary key (`id`));
 
 

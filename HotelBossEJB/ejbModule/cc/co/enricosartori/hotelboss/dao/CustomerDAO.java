@@ -16,7 +16,12 @@ import cc.co.enricosartori.hotelboss.entities.CustomerEB;
 public class CustomerDAO implements CustomerDAOLocal {
 	@PersistenceContext
 	private EntityManager ent_man;
-
+	
+	public boolean check_room (int room) {
+		CustomerEB eb = ent_man.find(CustomerEB.class, room);
+		return !(eb == null);
+	}
+	
 	@Override
 	public boolean check_cust(Customer c) {
 		CustomerEB eb = ent_man.find(CustomerEB.class, c.getRoom());

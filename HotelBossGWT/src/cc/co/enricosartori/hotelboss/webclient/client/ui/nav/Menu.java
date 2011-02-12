@@ -56,6 +56,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent ev) {
 				if (e.widget != null && !cont.is_loaded((Widget) e.widget)) {
 					if (!e.widget.is_running()) e.widget.init();
+					else e.widget.update();
 					cont.change_wid((Widget) e.widget);
 				}
 			}

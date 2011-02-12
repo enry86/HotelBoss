@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -12,6 +13,7 @@ import javax.persistence.Query;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
 import cc.co.enricosartori.hotelboss.entities.PurchaseEB;
 
+@Stateless
 public class PurchaseDAO implements PurchaseDAOLocal {
 	@PersistenceContext
 	EntityManager ent_man;
@@ -52,6 +54,8 @@ public class PurchaseDAO implements PurchaseDAOLocal {
 		d.setId(e.getId());
 		d.setRoom(e.getRoom());
 		d.setDate(e.getDate());
+		d.setExtra_id(e.getExtra_id());
+		d.setQty(e.getQty());
 		return d;
 	}
 	
@@ -60,6 +64,8 @@ public class PurchaseDAO implements PurchaseDAOLocal {
 		e.setId(d.getId());
 		e.setDate(d.getDate());
 		e.setRoom(d.getRoom());
+		e.setQty(d.getQty());
+		e.setExtra_id(d.getExtra_id());
 		return e;
 	}
 	

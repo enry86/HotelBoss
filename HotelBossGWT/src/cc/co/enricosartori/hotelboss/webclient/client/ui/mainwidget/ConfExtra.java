@@ -76,6 +76,10 @@ public class ConfExtra extends Composite implements MainWidget {
 		initWidget(dock);
 	}
 	
+	public void update () {
+		update_table();
+	}
+	
 	public boolean is_running() {
 		return running;
 	}

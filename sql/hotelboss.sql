@@ -29,6 +29,8 @@ create table if not exists `purchase` (
 `id` integer not null auto_increment,
 `room` integer not null,
 `date` date not null,
+`qty` integer not null,
+`extra_id` integer not null,
 primary key (`id`));
 
 

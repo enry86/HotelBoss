@@ -6,6 +6,7 @@ import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfPrices;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfRed;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.ConfUser;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.DashBoard;
+import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.PurView;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget.RecReser;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.nav.Menu.Entry;
@@ -35,7 +36,6 @@ public class Navigation extends ResizeComposite {
 		Entry[] r = {
 				new Entry("Arrivi", new Arrivals()),
 				new Entry("Partenze", null),
-				new Entry("ISTAT", null)	
 		};
 		
 		Entry[] h = {
@@ -54,7 +54,7 @@ public class Navigation extends ResizeComposite {
 		};
 		
 		Entry[] e = {
-				new Entry("Modifica extra", null)
+				new Entry("Modifica extra", new PurView ())
 		};
 		
 		home = new Menu(h, cont);

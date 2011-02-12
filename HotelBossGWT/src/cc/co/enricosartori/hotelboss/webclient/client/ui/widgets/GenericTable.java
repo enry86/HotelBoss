@@ -37,7 +37,6 @@ public class GenericTable extends Composite {
 			header.setText(0, i, fields[i]);
 			table.getColumnFormatter().setWidth(i, Integer.toString(width) + "%");
 		}
-		
 	}
 	
 	public void reset() {

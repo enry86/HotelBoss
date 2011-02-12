@@ -90,7 +90,11 @@ public class RecReser extends Composite implements MainWidget {
 		running = true;
 		initWidget (dock);
 	}
-
+	
+	public void update () {
+		update_table ();
+	}
+	
 	@Override
 	public boolean is_running() {
 		return running;

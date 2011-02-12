@@ -8,7 +8,11 @@ public class Purchase implements Serializable {
 	private int id;
 	private int room;
 	private Date date;
+	private int qty;
+	private int extra_id;
 	private String status;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -32,6 +36,18 @@ public class Purchase implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	public int getExtra_id() {
+		return extra_id;
+	}
+	public void setExtra_id(int extraId) {
+		extra_id = extraId;
 	}
 	
 	

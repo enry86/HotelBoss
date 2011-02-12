@@ -43,7 +43,6 @@ public class Arrivals extends Composite implements MainWidget {
 	private DatePicker arr_dp;
 	
 	private final String[] TREATS = {"Pensione Completa", "Mezza Pensione", "B&B"};
-	private final int FB = 0, HB = 1, BB = 2;
 	private HashMap<Integer, Reduction> reds;
 	
 	private ArrController a_cont;

@@ -83,7 +83,10 @@ public class Reception implements ReceptionRemote {
 
 	@Override
 	public List<Purchase> get_pur_room(int room) {
-		return pur_dao.get_purs(room);
+		List<Purchase> l = null;
+		if (cus_dao.check_room(room)) 
+			l = pur_dao.get_purs(room);
+		return l;
 	}
 
 	@Override

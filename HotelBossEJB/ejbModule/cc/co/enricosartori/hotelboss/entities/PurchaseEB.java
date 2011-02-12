@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="purhcase")
+@Table (name="purchase")
 @NamedQueries ({
 	@NamedQuery (name="Purchases_room",
 			query="select p from PurchaseEB p where p.room = :room")
@@ -22,8 +22,12 @@ public class PurchaseEB {
 	private int id;
 	private int room;
 	private Date date;
+	private int qty;
+	private int extra_id;
+
 	
 	public static final String PURCHASES_ROOM = "Purchases_room";
+
 	
 	public int getId() {
 		return id;
@@ -42,6 +46,18 @@ public class PurchaseEB {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	public int getExtra_id() {
+		return extra_id;
+	}
+	public void setExtra_id(int extraId) {
+		extra_id = extraId;
 	}
 	
 	

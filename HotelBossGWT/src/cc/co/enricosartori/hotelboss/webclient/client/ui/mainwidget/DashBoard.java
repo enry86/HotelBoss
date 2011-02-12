@@ -58,7 +58,8 @@ public class DashBoard extends Composite implements MainWidget {
 	@Override
 	public void init() {}
 
-
+	public void update () {}
+	
 	@Override
 	public boolean is_running() {
 		return running;

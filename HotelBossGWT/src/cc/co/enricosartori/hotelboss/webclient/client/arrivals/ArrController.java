@@ -1,6 +1,5 @@
 package cc.co.enricosartori.hotelboss.webclient.client.arrivals;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import cc.co.enricosartori.hotelboss.dto.Customer;

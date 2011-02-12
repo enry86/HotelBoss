@@ -87,6 +87,10 @@ public class ConfUser extends Composite implements MainWidget {
 		return running;
 	}
 	
+	public void update () {
+		update_table ();
+	}
+	
 	public void set_table_callback (Listener l) {
 		table.set_listener(l);
 	}

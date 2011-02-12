@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:hboss.nav='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget'
+  xmlns:hboss.wid='urn:import:cc.co.enricosartori.hotelboss.webclient.client.ui.widgets' >
+  <g:DockLayoutPanel unit='EM'>
+    <g:north size="2">
+      <g:Label>HotelBoss - Inserimento Consumazioni cliente</g:Label>
+    </g:north>
+    <g:center>
+ 	  <g:ScrollPanel>
+ 	  	<g:VerticalPanel ui:field="cont" width="80%"/>
+ 	  </g:ScrollPanel>
+ 	</g:center>
+  </g:DockLayoutPanel>
+</ui:UiBinder>

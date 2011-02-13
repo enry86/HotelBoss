@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
+import cc.co.enricosartori.hotelboss.dto.Period;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
 import cc.co.enricosartori.hotelboss.logic.CheckoutLogicLocal;
 
@@ -19,7 +20,7 @@ public class Checkout implements CheckoutRemote {
 	private CheckoutLogicLocal colog;
 	
 	private HashMap<Integer,Purchase> purchases = new HashMap<Integer, Purchase> ();
-	
+	private ArrayList<Period> periods = new ArrayList<Period> ();
 	
 	public void add_purchase (List<Purchase> p) {
 		System.out.println(purchases.size());
@@ -49,5 +50,16 @@ public class Checkout implements CheckoutRemote {
 	
 	public void cancel () {
 		purchases.clear();
+		periods.clear();
+	}
+
+	@Override
+	public List<Period> get_periods(int room) {
+		List<Period> l = colog.get_periods(room);
+		Iterator<Period> i = l.iterator();
+		while (i.hasNext()) {
+			periods.add(i.next());
+		}
+		return l;
 	}
 }

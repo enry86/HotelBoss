@@ -15,7 +15,13 @@ import javax.persistence.Table;
 	@NamedQuery(name="Pricelist_dateAsc",
 			query="select price from PriceEB price order by price.start_d asc"),
 	@NamedQuery(name="Pricelist_maxId",
-			query="select max(price.price_id) from PriceEB price")
+			query="select max(price.price_id) from PriceEB price"),
+	@NamedQuery(name="Price_compl",
+			query="select p from PriceEB p where p.start_d <= :date_arr and p.end_d >= :date_arr and p.start_d <= :date_par and p.end_d >= :date_par "),
+	@NamedQuery(name="Price_chunk",
+			query="select p from PriceEB p where p.start_d <= :date and p.end_d >= :date "),
+	@NamedQuery(name="Price_interm",
+			query="select p from PriceEB p where p.start_d > :date_arr and p.end_d < :date_par order by p.start_d")
 })
 
 public class PriceEB implements Serializable {
@@ -26,6 +32,9 @@ public class PriceEB implements Serializable {
 
 	public static final String NQ_PRICELIST_ASC = "Pricelist_dateAsc";
 	public static final String NQ_MAX_PRICEID = "Pricelist_maxId";
+	public static final String PRICE_COMPL = "Price_compl";
+	public static final String PRICE_CHUNK = "Price_chunk";
+	public static final String PRICE_INTERM = "Price_interm";
 	
 	@Id
 	int price_id;

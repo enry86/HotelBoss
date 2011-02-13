@@ -50,7 +50,14 @@ public class ReductionDAO implements ReductionDAOLocal {
 		update_entity (red, eb);
 		ent_man.remove(eb);
 	}
-
+	
+	
+	public Reduction get_reduction (int id) {
+		Reduction res = null;
+		ReductionEB eb = ent_man.find(ReductionEB.class, id);
+		if (eb != null) res = get_DTO (eb);
+		return res;
+	}
 	
 	private List<Reduction> convert_list(List<ReductionEB> list) {
 		Iterator<ReductionEB> i = list.iterator();

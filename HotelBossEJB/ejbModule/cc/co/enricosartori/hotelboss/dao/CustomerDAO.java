@@ -22,6 +22,13 @@ public class CustomerDAO implements CustomerDAOLocal {
 		return !(eb == null);
 	}
 	
+	public Customer get_customer (int room) {
+		Customer res = null;
+		CustomerEB eb = ent_man.find(CustomerEB.class, room);
+		if (eb != null) res = get_DTO (eb);
+		return res;
+	}
+	
 	@Override
 	public boolean check_cust(Customer c) {
 		CustomerEB eb = ent_man.find(CustomerEB.class, c.getRoom());

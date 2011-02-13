@@ -13,5 +13,6 @@ public interface ReductionDAOLocal {
 	public void insert_red (Reduction red);
 	public void update_red (Reduction red);
 	public void delete_red (Reduction red);
+	public Reduction get_reduction (int id);
 	
 }

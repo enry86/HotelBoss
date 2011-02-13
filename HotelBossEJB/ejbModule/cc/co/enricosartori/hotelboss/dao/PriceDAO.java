@@ -1,5 +1,6 @@
 package cc.co.enricosartori.hotelboss.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,4 +90,37 @@ public class PriceDAO implements PriceDAOLocal {
 		p.setState("STORED");
 		return p;
 	}
+
+
+	@Override
+	public Price get_compl_price(Date arr, Date dep) {
+		Price res = null;
+		Query q = ent_man.createNamedQuery(PriceEB.PRICE_COMPL);
+		q.setParameter("date_arr", arr);
+		q.setParameter("date_par", dep);
+		PriceEB eb = (PriceEB) q.getSingleResult();
+		if (eb != null) res = get_DTO(eb);
+		return res;
+	}
+
+
+	@Override
+	public Price get_chunk_price(Date date) {
+		Price res = null;
+		Query q = ent_man.createNamedQuery(PriceEB.PRICE_CHUNK);
+		q.setParameter("date", date);
+		PriceEB eb = (PriceEB) q.getSingleResult();
+		if (eb != null) res = get_DTO(eb);
+		return res;
+	}
+
+
+	@Override
+	public List<Price> get_inter_price(Date arr, Date par) {
+		Query q = ent_man.createNamedQuery(PriceEB.PRICE_INTERM);
+		List<PriceEB> l = q.getResultList();
+		return convert_list (l);
+	}
+
+
 }

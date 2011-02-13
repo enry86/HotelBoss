@@ -11,5 +11,6 @@ import cc.co.enricosartori.hotelboss.dto.Purchase;
 @Local
 public interface CheckoutLogicLocal {
 	public float get_total_pur (Collection<Purchase> c);
+	public float get_total_pens (List<Period> per);
 	public List<Period> get_periods (int room);
 }

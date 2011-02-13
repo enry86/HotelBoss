@@ -95,11 +95,18 @@ public class PriceDAO implements PriceDAOLocal {
 	@Override
 	public Price get_compl_price(Date arr, Date dep) {
 		Price res = null;
+		PriceEB eb = null;
 		Query q = ent_man.createNamedQuery(PriceEB.PRICE_COMPL);
 		q.setParameter("date_arr", arr);
 		q.setParameter("date_par", dep);
-		PriceEB eb = (PriceEB) q.getSingleResult();
-		if (eb != null) res = get_DTO(eb);
+		try {
+			eb = (PriceEB) q.getSingleResult();
+			res = get_DTO(eb);
+		}
+		catch (Exception e){
+			System.out.println("No single period for the customer");
+		}
+		
 		return res;
 	}
 
@@ -107,10 +114,16 @@ public class PriceDAO implements PriceDAOLocal {
 	@Override
 	public Price get_chunk_price(Date date) {
 		Price res = null;
+		PriceEB eb = null;
 		Query q = ent_man.createNamedQuery(PriceEB.PRICE_CHUNK);
 		q.setParameter("date", date);
-		PriceEB eb = (PriceEB) q.getSingleResult();
-		if (eb != null) res = get_DTO(eb);
+		try {
+			eb = (PriceEB) q.getSingleResult();
+			res = get_DTO(eb);
+		}
+		catch (Exception e) {
+			System.out.println("No initial or final period for the query");
+		}
 		return res;
 	}
 
@@ -118,6 +131,8 @@ public class PriceDAO implements PriceDAOLocal {
 	@Override
 	public List<Price> get_inter_price(Date arr, Date par) {
 		Query q = ent_man.createNamedQuery(PriceEB.PRICE_INTERM);
+		q.setParameter("date_arr", arr);
+		q.setParameter("date_par", par);
 		List<PriceEB> l = q.getResultList();
 		return convert_list (l);
 	}

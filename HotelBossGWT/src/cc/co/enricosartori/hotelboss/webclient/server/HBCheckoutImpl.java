@@ -6,7 +6,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import cc.co.enricosartori.hotelboss.core.CheckoutRemote;
+import cc.co.enricosartori.hotelboss.dto.Period;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
+import cc.co.enricosartori.hotelboss.dto.Totals;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBCheckout;
 
 import com.google.gwt.core.client.GWT;
@@ -35,6 +37,10 @@ public class HBCheckoutImpl extends RemoteServiceServlet implements HBCheckout {
 		hbco.add_purchase(p);
 		
 	}
+	
+	public List<Period> get_periods (int room) {
+		return hbco.get_periods(room);
+	}
 
 	@Override
 	public List<Purchase> get_purchase () {
@@ -53,5 +59,15 @@ public class HBCheckoutImpl extends RemoteServiceServlet implements HBCheckout {
 	
 	public void cancel () {
 		hbco.cancel();
+	}
+
+	@Override
+	public void checkout(int room) {
+		hbco.checkout(room);
+	}
+
+	@Override
+	public Totals get_totals() {
+		return hbco.get_totals();
 	}
 }

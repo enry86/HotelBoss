@@ -1,12 +1,15 @@
 package cc.co.enricosartori.hotelboss.webclient.client.ui.mainwidget;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import cc.co.enricosartori.hotelboss.dto.Extra;
+import cc.co.enricosartori.hotelboss.dto.Period;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
+import cc.co.enricosartori.hotelboss.dto.Totals;
 import cc.co.enricosartori.hotelboss.webclient.client.checkout.CoController;
 import cc.co.enricosartori.hotelboss.webclient.client.checkout.CoModel;
 import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.ViewTable;
@@ -14,11 +17,11 @@ import cc.co.enricosartori.hotelboss.webclient.client.ui.widgets.ViewTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -44,12 +47,15 @@ public class CoView extends Composite implements MainWidget {
 	
 	private VerticalPanel pur_panel;
 	private VerticalPanel bill_panel;
+	private VerticalPanel tot_panel;
 	private Button sear_butt, close_butt, ok_butt, rem_butt;
 	private ListBox pur_lb = new ListBox ();
 	private TextBox room_tb;
 	private Label tot_lab;
+	private HandlerRegistration ok_hr;
 	
 	private ViewTable per_tab = new ViewTable (new String [] {"Periodo", "Giorni", "Prezzo"});
+	private ViewTable tot_tab = new ViewTable (new String [] {"Descrizone", "Importo"});
 	
 	private CoModel mod;
 	private CoController con;
@@ -72,11 +78,51 @@ public class CoView extends Composite implements MainWidget {
 		}
 
 		public void onSuccess(Float result) {
-			NumberFormat nf = NumberFormat.getFormat("########,00");
+			NumberFormat nf = NumberFormat.getFormat("########.00");
 			tot_lab.setText("Totale Extra: " + nf.format(result));
+			con.select_bill ();
 		}
 	};
 	
+	
+	private AsyncCallback<Totals> tot_cb = new AsyncCallback<Totals> () {
+		public void onFailure(Throwable caught) {
+			show_message("Errore di comunicazione con il server");
+		}
+
+		public void onSuccess(Totals result) {
+			populate_tot_tab (result);
+			set_checkout_mode ();
+		}
+	};
+	
+	private AsyncCallback<List<Period>> per_cb = new AsyncCallback<List<Period>> () {
+		public void onFailure(Throwable caught) {
+			show_message ("Errore di comunicazione con il server");
+		}
+
+		public void onSuccess(List<Period> result) {
+			populate_pers_tab (result);
+		}
+	};
+	
+	private ClickHandler pur_handler = new ClickHandler () {
+		public void onClick(ClickEvent event) {
+			con.pur_accept ();
+		}
+	};
+	
+	private ClickHandler bill_handler = new ClickHandler () {
+		public void onClick(ClickEvent event) {
+			con.bill_accept ();
+		}
+	};
+	
+	private ClickHandler co_handler = new ClickHandler () {
+		public void onClick(ClickEvent event) {
+			con.checkout ();
+		}
+	};
 	
 	@Override
 	public void init() {
@@ -89,8 +135,10 @@ public class CoView extends Composite implements MainWidget {
 		setup_search_pan ();
 		pur_panel = setup_pur_panel ();
 		bill_panel = setup_bill_panel ();
+		tot_panel = setup_tot_panel ();
 		cont.add(pur_panel);
 		cont.add(bill_panel);
+		cont.add(tot_panel);
 		setup_butt_panel ();
 		set_search_mode ();
 		running = true;
@@ -129,22 +177,60 @@ public class CoView extends Composite implements MainWidget {
 		}
 	}
 	
+	public void update_periods_tab () {
+		mod.fetch_periods (Integer.parseInt(room_tb.getValue()), per_cb);
+	}
+	
+	public void populate_pers_tab (List<Period> l) {
+		Iterator<Period> i = l.iterator();
+		ArrayList<String> row = new ArrayList<String> ();
+		DateTimeFormat df = DateTimeFormat.getFormat("dd/MM/yyyy");
+		NumberFormat nf = NumberFormat.getFormat("#########.00");
+		while (i.hasNext()) {
+			Period tmp = i.next();
+			String sd = df.format(tmp.getD_start());
+			String ed = df.format(tmp.getD_end());
+			row.add(sd + " - " + ed);
+			row.add(Integer.toString(tmp.getDays()));
+			row.add(nf.format(tmp.getPrice()));
+			per_tab.add_row(row);
+			row.clear();
+		}
+	}
+	
 	public void set_search_mode () {
 		pur_panel.setVisible(false);
 		bill_panel.setVisible(false);
+		tot_panel.setVisible(false);
 		butt.setVisible(false);
 	}
 	
 	public void set_pur_mode () {
 		pur_panel.setVisible(true);
 		bill_panel.setVisible(false);
+		tot_panel.setVisible(false);
 		butt.setVisible(true);
+		ok_hr.removeHandler();
+		ok_hr = ok_butt.addClickHandler(pur_handler);
 	}
 	
 	public void set_bill_mode () {
 		pur_panel.setVisible(false);
 		bill_panel.setVisible(true);
+		tot_panel.setVisible(false);
 		butt.setVisible(true);
+		ok_hr.removeHandler();
+		ok_hr = ok_butt.addClickHandler(bill_handler);
+	}
+	
+	public void set_checkout_mode () {
+		pur_panel.setVisible(false);
+		bill_panel.setVisible(false);
+		tot_panel.setVisible(true);
+		butt.setVisible(true);
+		ok_butt.setText("Checkout");
+		ok_hr.removeHandler();
+		ok_hr = ok_butt.addClickHandler(co_handler);
 	}
 	
 	public void set_editable (boolean enabled) {
@@ -164,10 +250,33 @@ public class CoView extends Composite implements MainWidget {
 		mod.get_total_pur (tpur_cb);
 	}
 	
+	public void update_totals () {
+		mod.fetch_totals (tot_cb);
+	}
+	
+	public void populate_tot_tab (Totals tot) {
+		ArrayList<String> row = new ArrayList<String> ();
+		NumberFormat nf = NumberFormat.getFormat("########.00");
+		row.add("Tot Extra");
+		row.add(nf.format(tot.getExtra()));
+		tot_tab.add_row(row);
+		row.clear();
+		row.add("Tot Pensione");
+		row.add(nf.format(tot.getPens()));
+		tot_tab.add_row(row);
+		row.clear();
+		row.add("Totale");
+		row.add(nf.format(tot.getTotal()));
+		tot_tab.add_row(row);
+		row.clear();
+	}
+	
 	public void reset_fields () {
 		room_tb.setValue ("");
 		pur_lb.clear();
 		purs.clear();
+		per_tab.reset();
+		tot_tab.reset();
 	}
 	
 	public void remove_pur () {
@@ -215,11 +324,7 @@ public class CoView extends Composite implements MainWidget {
 		close_butt = new Button ("Chiudi");
 		butt.add(close_butt);
 		butt.add(ok_butt);
-		ok_butt.addClickHandler(new ClickHandler () {
-			public void onClick(ClickEvent event) {
-				con.pur_accept ();
-			}
-		});
+		ok_hr = ok_butt.addClickHandler(pur_handler);
 		close_butt.addClickHandler(new ClickHandler () {
 			public void onClick(ClickEvent event) {
 				con.close ();
@@ -231,6 +336,12 @@ public class CoView extends Composite implements MainWidget {
 		VerticalPanel res = new VerticalPanel ();
 		res.add (tot_lab);
 		res.add (per_tab);
+		return res;
+	}
+	
+	private VerticalPanel setup_tot_panel () {
+		VerticalPanel res = new VerticalPanel ();
+		res.add(tot_tab);
 		return res;
 	}
 	

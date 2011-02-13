@@ -91,4 +91,10 @@ public class CustomerDAO implements CustomerDAOLocal {
 		return res;
 	}
 
+	@Override
+	public void delete_room(int room) {
+		CustomerEB cus = ent_man.find(CustomerEB.class, room);
+		if (cus != null) ent_man.remove(cus);
+	}
+
 }

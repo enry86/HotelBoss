@@ -21,7 +21,7 @@ public class CoController {
 			if (result != null) {
 				view.populate_pur_lb (result);
 				view.set_pur_mode ();
-				view.set_editable(false);
+				view.set_editable(true);
 			}
 			else view.show_message("Camera non occupata!");
 		}
@@ -36,7 +36,6 @@ public class CoController {
 		public void onSuccess(Void result) {
 			view.show_message ("Extra aggiunti al conto");
 			view.update_tot_pur();
-			view.set_bill_mode();
 		}
 	};
 	
@@ -54,6 +53,21 @@ public class CoController {
 			view.set_editable(false);
 		}
 	};
+	
+	private AsyncCallback<Void> co_cb = new AsyncCallback<Void> () {
+		public void onFailure(Throwable caught) {
+			view.show_message("Errore di comunicazione con il server");
+		}
+
+		public void onSuccess(Void result) {
+			view.show_message("Checkout del cliente eseguito con successo");
+			view.reset_fields();
+			view.set_search_mode();
+			view.set_editable(false);
+		}
+		
+	};
+	
 	
 	public CoController (CoView view, CoModel model) {
 		this.view = view;
@@ -84,4 +98,17 @@ public class CoController {
 		model.save_purs (l, save_cb);
 	}
 	
+	public void bill_accept () {
+		view.update_totals ();
+	}
+	
+	public void select_bill () {
+		view.update_periods_tab ();
+		view.set_bill_mode();
+	}
+	
+	public void checkout () {
+		String room = view.get_room ();
+		model.checkout(Integer.parseInt(room), co_cb);
+	}
 }

@@ -10,14 +10,21 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
+import cc.co.enricosartori.hotelboss.dao.CustomerDAOLocal;
+import cc.co.enricosartori.hotelboss.dao.PurchaseDAOLocal;
 import cc.co.enricosartori.hotelboss.dto.Period;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
+import cc.co.enricosartori.hotelboss.dto.Totals;
 import cc.co.enricosartori.hotelboss.logic.CheckoutLogicLocal;
 
 @Stateful
 public class Checkout implements CheckoutRemote {
 	@EJB
 	private CheckoutLogicLocal colog;
+	@EJB
+	private CustomerDAOLocal cus_dao;
+	@EJB
+	private PurchaseDAOLocal pur_dao;
 	
 	private HashMap<Integer,Purchase> purchases = new HashMap<Integer, Purchase> ();
 	private ArrayList<Period> periods = new ArrayList<Period> ();
@@ -61,5 +68,22 @@ public class Checkout implements CheckoutRemote {
 			periods.add(i.next());
 		}
 		return l;
+	}
+
+	@Override
+	public void checkout(int room) {
+		pur_dao.depart_pur(room);
+		cus_dao.delete_room (room);
+		purchases.clear();
+		periods.clear();
+	}
+
+	@Override
+	public Totals get_totals() {
+		Totals res = new Totals ();
+		res.setExtra(colog.get_total_pur (purchases.values()));
+		res.setPens(colog.get_total_pens (periods));
+		res.setTotal(res.getExtra() + res.getPens());
+		return res;
 	}
 }

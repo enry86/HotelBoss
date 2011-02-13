@@ -81,7 +81,7 @@ public class CheckoutLogic implements CheckoutLogicLocal {
 			if (i == l.size() - 1) {
 				end = dep;
 			}
-			float price = get_price (curr, cus.getTreatment(), red);
+			float price = get_price (curr, cus.getPeople(), cus.getTreatment(), red);
 			int days = get_days (start, end);
 			tmp.setD_start(start);
 			tmp.setD_end(end);
@@ -93,24 +93,26 @@ public class CheckoutLogic implements CheckoutLogicLocal {
 	}
 	
 	
-	private float get_price (Price p, int treat, Reduction r) {
+	private float get_price (Price p, int peop, int treat, Reduction r) {
 		float base = 0.0f;
 		float var = 0.0f;
 		float res = 0.0f;
 		if (treat == 0) base = p.getFb();
 		else if (treat == 1) base = p.getHb();
 		else if (treat == 2) base = p.getBb();
-		if (r.isPerc()) {
-			var = base * (r.getVal() / 100.0f);
+		base *= peop;
+		if (r != null) {
+			if (r.isPerc()) {
+				var = base * (r.getVal() / 100.0f);
+			}
+			else {
+				var = r.getVal();
+			}
+			if (r.getRed_type() == 0) res = base - var;
+			else if (r.getRed_type() == 1) res = base + var;
+			else if (r.getRed_type() == 2) res = var;
 		}
-		else {
-			var = r.getVal();
-		}
-		
-		if (r.getRed_type() == 0) res = base - var;
-		else if (r.getRed_type() == 1) res = base + var;
-		else if (r.getRed_type() == 2) res = var;
-		
+		else res = base;
 		return res;
 	}
 	
@@ -120,5 +122,16 @@ public class CheckoutLogic implements CheckoutLogicLocal {
 		long el = e.getTime();
 		int diff = (int) (el - sl);
 		return diff / day;		
+	}
+
+	@Override
+	public float get_total_pens(List<Period> per) {
+		float res = 0.0f; 
+		Iterator<Period> i = per.iterator();
+		while (i.hasNext()) {
+			Period tmp = i.next();
+			res += tmp.getDays() * tmp.getPrice();
+		}
+		return res;
 	}
 }

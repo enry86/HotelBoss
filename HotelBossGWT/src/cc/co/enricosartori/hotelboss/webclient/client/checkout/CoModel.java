@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import cc.co.enricosartori.hotelboss.dto.Extra;
+import cc.co.enricosartori.hotelboss.dto.Period;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
+import cc.co.enricosartori.hotelboss.dto.Totals;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBCheckout;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBCheckoutAsync;
 import cc.co.enricosartori.hotelboss.webclient.client.services.HBConfiguration;
@@ -45,7 +47,19 @@ public class CoModel {
 		hbco.get_total_pur(cb);
 	}
 	
+	public void fetch_periods (int room, AsyncCallback<List<Period>> cb) {
+		hbco.get_periods(room, cb);
+	}
+	
 	public void close (AsyncCallback<Void> cb) {
 		hbco.cancel(cb);
+	}
+	
+	public void fetch_totals (AsyncCallback<Totals> cb) {
+		hbco.get_totals(cb);
+	}
+	
+	public void checkout (int room, AsyncCallback<Void> cb) {
+		hbco.checkout(room, cb);
 	}
 }

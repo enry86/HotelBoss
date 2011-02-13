@@ -9,6 +9,7 @@ public interface CustomerDAOLocal {
 	public void insert_cust (Customer c);
 	public void update_cust (Customer c);
 	public void delete_cust (Customer c);
+	public void delete_room (int room);
 	public boolean check_cust (Customer c);
 	public boolean check_room (int room);
 	public Customer get_customer (int room);

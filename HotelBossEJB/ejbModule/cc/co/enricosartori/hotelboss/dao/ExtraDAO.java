@@ -66,4 +66,12 @@ public class ExtraDAO implements ExtraDAOLocal {
 		ent.setName (dto.getName());
 		ent.setPrice (dto.getPrice());
 	}
+
+	@Override
+	public float get_price (int extraId) {
+		float res = 0.0f;
+		ExtraEB eb = ent_man.find(ExtraEB.class, extraId);
+		if (eb != null) res = eb.getPrice();
+		return res;
+	}
 }

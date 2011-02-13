@@ -16,6 +16,11 @@
     <servlet-class>cc.co.enricosartori.hotelboss.webclient.server.HBReceptionImpl</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>hbCheckout</servlet-name>
+    <servlet-class>cc.co.enricosartori.hotelboss.webclient.server.HBCheckoutImpl</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>hbConfiguration</servlet-name>
     <url-pattern>/hotelbossgwt/hbConfiguration</url-pattern>
@@ -24,6 +29,11 @@
   <servlet-mapping>
     <servlet-name>hbReception</servlet-name>
     <url-pattern>/hotelbossgwt/hbReception</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>hbCheckout</servlet-name>
+    <url-pattern>/hotelbossgwt/hbCheckout</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

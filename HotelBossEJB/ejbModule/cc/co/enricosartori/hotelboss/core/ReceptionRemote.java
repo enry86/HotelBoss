@@ -7,7 +7,7 @@ import javax.ejb.Remote;
 
 import cc.co.enricosartori.hotelboss.dto.Customer;
 import cc.co.enricosartori.hotelboss.dto.Purchase;
-import cc.co.enricosartori.hotelboss.dto.Reservation;;
+import cc.co.enricosartori.hotelboss.dto.Reservation;
 
 @Remote
 public interface ReceptionRemote {

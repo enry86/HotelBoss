@@ -14,5 +14,6 @@ public interface ExtraDAOLocal {
 	public void insert_extra (Extra e);
 	public void update_extra (Extra e);
 	public void delete_extra (Extra e);
+	public float get_price (int extraId);
 	
 }

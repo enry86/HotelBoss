@@ -40,7 +40,6 @@ public class ConfUser extends Composite implements MainWidget {
 	@UiField(provided=true)
 	final GenericTable table = new GenericTable (new String[]
 			{"Username",
-			 "Role",
 			 "Nome",
 			 "Cognome",
 			 "Email"}
@@ -61,7 +60,7 @@ public class ConfUser extends Composite implements MainWidget {
 		}
 	};
 	
-	private TextBox user_tb, role_tb, name_tb, surn_tb, email_tb;
+	private TextBox user_tb, name_tb, surn_tb, email_tb;
 	private Button new_butt, save_butt, canc_butt, dele_butt;
 	private PasswordTextBox pass_tb;
 	
@@ -109,7 +108,7 @@ public class ConfUser extends Composite implements MainWidget {
 		User res = new User();
 		res.setUsername(user_tb.getValue());
 		res.setPasswd(pass_tb.getValue());
-		res.setRole(role_tb.getValue());
+		res.setRole("admin");
 		res.setName(name_tb.getValue());
 		res.setSurname(surn_tb.getValue());
 		res.setEmail(email_tb.getValue());
@@ -137,7 +136,6 @@ public class ConfUser extends Composite implements MainWidget {
 	private void update_fields (User u) {
 		user_tb.setValue(u.getUsername());
 		pass_tb.setValue(u.getPasswd());
-		role_tb.setValue(u.getRole());
 		name_tb.setValue(u.getName());
 		surn_tb.setValue(u.getSurname());
 		email_tb.setValue(u.getEmail());
@@ -146,7 +144,6 @@ public class ConfUser extends Composite implements MainWidget {
 	public void reset_fields () {
 		user_tb.setValue("");
 		pass_tb.setValue("");
-		role_tb.setValue("");
 		name_tb.setValue("");
 		surn_tb.setValue("");
 		email_tb.setValue("");
@@ -156,7 +153,6 @@ public class ConfUser extends Composite implements MainWidget {
 		VerticalPanel res = new VerticalPanel ();
 		user_tb = new TextBox();
 		pass_tb = new PasswordTextBox();
-		role_tb = new TextBox();
 		name_tb = new TextBox();
 		surn_tb = new TextBox();
 		email_tb = new TextBox();
@@ -164,8 +160,6 @@ public class ConfUser extends Composite implements MainWidget {
 		res.add(user_tb);
 		res.add(new Label("Password:"));
 		res.add(pass_tb);
-		res.add(new Label("Gruppo:"));
-		res.add(role_tb);
 		res.add(new Label("Nome:"));
 		res.add(name_tb);
 		res.add(new Label("Cognome:"));
@@ -215,7 +209,6 @@ public class ConfUser extends Composite implements MainWidget {
 	public void set_editable (boolean enabled) {
 		user_tb.setEnabled(enabled);
 		pass_tb.setEnabled(enabled);
-		role_tb.setEnabled(enabled);
 		name_tb.setEnabled(enabled);
 		surn_tb.setEnabled(enabled);
 		email_tb.setEnabled(enabled);

@@ -3,8 +3,11 @@ package cc.co.enricosartori.hotelboss.core;
 import java.sql.Date;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import org.jboss.aspects.security.SecurityDomain;
 
 import cc.co.enricosartori.hotelboss.dao.CustomerDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.PurchaseDAOLocal;
@@ -14,6 +17,7 @@ import cc.co.enricosartori.hotelboss.dto.Purchase;
 import cc.co.enricosartori.hotelboss.dto.Reservation;
 
 @Stateless
+@SecurityDomain("HotelBossLogin")
 public class Reception implements ReceptionRemote {
 	@EJB
 	private ReservDAOLocal res_dao;
@@ -22,19 +26,22 @@ public class Reception implements ReceptionRemote {
 	@EJB
 	private PurchaseDAOLocal pur_dao;
 	
-	
+	@RolesAllowed("admin")
 	public List<Reservation> get_reservations () {
 		return res_dao.get_reservations();
 	}
 	
+	@RolesAllowed("admin")
 	public List<Reservation> get_arrivals (Date d) {
 		return res_dao.get_arrivals(d);
 	}
 	
+	@RolesAllowed("admin")
 	public List<Reservation> get_departures (Date d) {
 		return res_dao.get_departures(d);
 	}
 	
+	@RolesAllowed("admin")
 	public boolean store_reservation (Reservation r) {
 		boolean res = true;
 		if (r.getStatus().equals("NEW")) {
@@ -57,11 +64,13 @@ public class Reception implements ReceptionRemote {
 	
 
 	@Override
+	@RolesAllowed("admin")
 	public List<Customer> get_customers() {
 		return cus_dao.get_customers();
 	}
 
 	@Override
+	@RolesAllowed("admin")
 	public boolean store_customer(Customer c) {
 		boolean res = true;
 		if (c.getStatus().equals("NEW")) {
@@ -82,6 +91,7 @@ public class Reception implements ReceptionRemote {
 	}
 
 	@Override
+	@RolesAllowed("admin")
 	public List<Purchase> get_pur_room(int room) {
 		List<Purchase> l = null;
 		if (cus_dao.check_room(room)) 
@@ -90,6 +100,7 @@ public class Reception implements ReceptionRemote {
 	}
 
 	@Override
+	@RolesAllowed("admin")
 	public boolean store_purchase(Purchase p) {
 		boolean res = true;
 		if (p.getStatus().equals("NEW")) {

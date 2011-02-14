@@ -11,7 +11,7 @@
 
   <!-- Jboss webserver root -->
   <property name="jboss.root" location="/home/enry/srv/jboss/server/default/deploy" />	
-	
+  <property name="jboss.home" location="/home/enry/srv/jboss" />	
   <!-- Name of the directory for the webapp -->
   <property name="webapp.name" value="hotelbossgwt" />
 	
@@ -34,6 +34,7 @@
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->
     <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+  	<fileset dir="${jboss.home}/client/" includes="**/*.jar" />
   </path>
 
   <target name="libs" description="Copy libs to WEB-INF/lib">

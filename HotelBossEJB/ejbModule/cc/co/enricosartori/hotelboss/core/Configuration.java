@@ -3,8 +3,11 @@ package cc.co.enricosartori.hotelboss.core;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import org.jboss.aspects.security.SecurityDomain;
 
 import cc.co.enricosartori.hotelboss.dao.ExtraDAOLocal;
 import cc.co.enricosartori.hotelboss.dao.PriceDAOLocal;
@@ -15,10 +18,8 @@ import cc.co.enricosartori.hotelboss.dto.Price;
 import cc.co.enricosartori.hotelboss.dto.Reduction;
 import cc.co.enricosartori.hotelboss.dto.User;
 
-/**
- * Session Bean implementation class Configuration
- */
 @Stateless
+@SecurityDomain("HotelBossLogin")
 public class Configuration implements ConfigurationRemote {
 	@EJB
 	PriceDAOLocal price_dao;
@@ -35,11 +36,13 @@ public class Configuration implements ConfigurationRemote {
     public Configuration() {}
 
 	@Override
+	@RolesAllowed("admin")
 	public List<Price> get_pricelist() {
 		System.out.println("Retrieving pricelist");
 		return price_dao.get_pricelist();
 	}
 	
+	@RolesAllowed("admin")
 	public void store_pricelist(List<Price> pl) {
 		Iterator<Price> i = pl.iterator();
 		while (i.hasNext()){
@@ -56,12 +59,12 @@ public class Configuration implements ConfigurationRemote {
 		}
 	}
 	
-	
+	@RolesAllowed("admin")
 	public List<Reduction>  get_reductions () {
 		return red_dao.get_reductions();
 	}
 	
-	
+	@RolesAllowed("admin")
 	public void store_reductions (List<Reduction> rl) {
 		Iterator<Reduction> i = rl.iterator();
 		while (i.hasNext()) {
@@ -78,12 +81,12 @@ public class Configuration implements ConfigurationRemote {
 		}
 	}
 
-
+	@RolesAllowed("admin")
 	public List<Extra> get_extras() {
 		return ext_dao.get_extras ();
 	}
 
-
+	@RolesAllowed("admin")
 	public void store_extras(List<Extra> el) {
 		Iterator<Extra> i = el.iterator();
 		while (i.hasNext()) {
@@ -100,17 +103,17 @@ public class Configuration implements ConfigurationRemote {
 		}
 	}
 
-	
+	@RolesAllowed("admin")
 	public boolean check_username(String user) {
 		return user_dao.check_user(user);
 	}
 
-	
+	@RolesAllowed("admin")
 	public List<User> get_users() {
 		return user_dao.get_users();
 	}
 
-	
+	@RolesAllowed("admin")
 	public boolean store_user(User user) {
 		boolean res = true;
 		if (user.getStatus().equals("NEW")) {
